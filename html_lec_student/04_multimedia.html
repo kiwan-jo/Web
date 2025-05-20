@@ -28,6 +28,10 @@
         alt 속성은 반드시 작성하는 것이 좋습니다. 이미지를 설명하는 짧은 문구를 넣어야 하며, 웹 접근성(특히 시각장애인용 스크린리더)과 검색엔진 최적화를 위해 필수적입니다.
   -->
 
+  <img src="../assets/images/1.png" alt="일" title="일" width="100" height="100">  <!-- 상대경로 -->
+  <img src="../assets/images/2.png" alt="이" title="이" width="100" height="100">
+  <img src="D:/dev/Web/assets/images/1.png" alt="일">  <!-- 절대경로 -->
+
   <!--
     이미지 경로 지정법
 
@@ -79,6 +83,15 @@
       1) <audio> 태그 내부에 여러 개의 <source> 태그를 넣어 다양한 포맷(mp3, ogg 등)을 지원할 수 있습니다. 브라우저가 지원하는 첫 번째 소스를 사용합니다.
       2) 태그 안에 텍스트를 넣으면, <audio> 태그를 지원하지 않는 브라우저에서 해당 메시지가 표시됩니다.
   -->
+<br>
+  <audio src="../assets/audio/t-rex-roar.mp3" controls>
+    이 브라우저는 audio를 지원하지 않습니다.
+  </audio>
+  <br>
+  <audio controls>
+    <source src="../assets/audio/t-rex-roar.mp3" type="audio/mp3"></source>
+    이 브라우저는 audio를 지원하지 않습니다.
+  </audio>
 
   <!--
     <video> 태그
@@ -119,6 +132,15 @@
       2) 브라우저마다 지원하는 포맷이 다르므로, 여러 포맷을 <source>로 제공하는 것이 좋습니다.
       3) 태그 안에 텍스트를 넣으면, <video> 태그를 지원하지 않는 브라우저에서 해당 메시지가 표시됩니다.
   -->
+
+  <br>
+    <video src="../assets/video/flower.webm" controls width="400" height="auto">
+      이 브라우저는 비디오를 지원하지 않습니다.
+    </video>
+    <video controls width="400" height="auto">
+      <source src="../assets/video/flower.webm" type="video/webm"></source>
+      이 브라우저는 비디오를 지원하지 않습니다.
+    </video>
 
 </body>
 </html>
