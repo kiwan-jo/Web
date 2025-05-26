@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>table</title>
+</head>
+<body>
+  <style>
+    .members{
+      border:1px solid #000;
+      border-collapse:separate; /* 디폴트 값으로 각 영역의 테두리를 구분합니다. */
+      border-collapse:collapse; /* 각 영역의 빈 공간이 붕괴되어, 테두리가 합쳐집니다. */
+    }
+    .members td{
+      border:1px solid silver;
+      text-align:center; /* 수평 가운데 정렬 */
+      vertical-align:middle; /* 수직 가운데 정렬 */
+    }
+    .members td:nth-child(1){width:200px;}
+    .members td:nth-child(2){width:400px;}
+    .members td:nth-child(3){width:600px;}
+    .members tr{height:80px;}
+
+    /* 첫 tr과 마지막 tr에 silver 배경색 주기 */
+    .members thead tr{background:silver;}
+    .members tfoot tr{background:silver;}
+
+    .members > tbody > tr:hover{
+      background:beige;
+      cursor:pointer; /* 링크의 포인터 모양 */
+    }
+    .members > tbody > tr:active{
+      background:bisque;
+    }
+  </style>
+  <table class="members">
+    <thead>
+      <tr>
+        <td>회원번호</td>
+        <td>회원명</td>
+        <td>보유포인트</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>제시카</td>
+        <td>1000</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>티파니</td>
+        <td>500</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>모모</td>
+        <td>2500</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="2">포인트 합계</td>
+        <td>4000</td>
+      </tr>
+    </tfoot>
+  </table>
+</body>
+</html>
