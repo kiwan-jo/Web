@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>background</title>
+  <style>
+    body{background-image:url(../assets/images/1.png),url(../assets/images/2.png),url(../assets/images/3.png),url(../assets/images/4.png); background-repeat:no-repeat; background-size:200px 200px; background-position:right 200px bottom 200px, right 0 bottom 200px, right 200px bottom 0, right 0 bottom 0; height:100vh; width:100vw; margin:0; padding:0;}
+    div{box-sizing:border-box; border:1px solid #000;}
+    .box1{background:yellow; width:50px; height:50px;}
+  </style>
+</head>
+<body>
+  <div class="box1"></div>
+  <hr>
+  <style>
+    .box2{
+      width:100px;
+      height:100px; 
+      background-image:url(../assets/images/animal1.jpg); 
+      background-size:100% 100%; 
+      background-size:50% 50%; 
+      background-repeat:no-repeat; 
+      background-position:center center;}
+  </style>
+  <div class="box2"></div>
+  <hr>
+  <style>
+    .box3{
+      width:300px; 
+      height:300px;
+      background-repeat:no-repeat; 
+      background-image:url(../assets/images/animal1.jpg); 
+      background-size:cover /* 이미지 너비/높이 중 작은 부분을 최대한 키웁니다. */; 
+      background-size:contain; /* 이미지 너비/높이 중 큰 부분에 맞춰 박스 안으로 넣습니다. 이미지가 잘리지 않지만 여백이 생김 */
+    }
+  </style>
+  <div class="box3"></div>
+  <hr>
+  <style>
+    .box4{
+      width:120px;
+      height:120px;
+      background-image:url(../assets/images/weather.png);
+      background-position:-145px 0; /* 왼쪽으로 145px, 위아래는 0 */
+      background-position:-145px; /* 오른쪽으로 145px, 위아래는 center (지정이 없으면 center 적용) */
+    }
+  </style>
+  <div class="box4"></div>
+</body>
+</html>
