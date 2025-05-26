@@ -71,6 +71,13 @@
         a.classList.add("on");
       })
     })
+
+    $(window).ready(function(){
+      $(".gnb li a").on("click",function(){
+        $(".gnb li a").removeClass("on");
+        this.addClass("on");
+      })
+    })
   </script>
 </body>
 </html>
