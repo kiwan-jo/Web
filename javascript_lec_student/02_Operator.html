@@ -19,16 +19,16 @@
     → parseInt(5 / 2) == 2
 
 2. 증감 연산자
-  1) ++a : 전위 증가
-  2) a++ : 후위 증가
+  1) ++a : 전위 증가 (증가 후에 사용)
+  2) a++ : 후위 증가 (사용 후에 증가)
   3) --a : 전위 감소
   4) a-- : 후위 감소
 
 3. 대입 연산자 / 복합 대입 연산자
-  1) 대입
+  1) 대입 (할당, Assingment)
     a = b : b에 저장된 값을 변수 a로 보냄
-  2) 복합
-    (1) a += 1 : a = a + 1 로 해석
+  2) 복합 (연산 + 할당)
+    (1) a += 1 : a = a + 1 로 해석 (a + 1 값을 a에 할당 : a를 1 증가가)
     (2) a -= 1 : a = a - 1 로 해석
     (3) a *= 1 : a = a * 1 로 해석
     (4) a /= 1 : a = a / 1 로 해석
@@ -52,15 +52,15 @@
   7) ===
     equal value & type
     (타입과 값 모두 비교. 1 === '1' 결과는 false 임)
-  4) !==
+  8) !==
     not equal value & type
     (타입과 값 모두 비교. 1 !== '1' 결과는 true 임)
 
 5. 논리 연산자
   1) &&
-    논리 AND. 모두 만족하면 true 아니면 false (short circuit 지원)
+    논리 AND. 모두 만족하면 true 아니면 false (short circuit 지원, 하나라도 false이면 최종적으로 false)
   2) ||
-    논리 OR. 하나만 만족해도 true 아니면 false (short circuit 지원)
+    논리 OR. 하나만 만족해도 true 아니면 false (short circuit 지원, 하나라도 true이면 최종적으로 true)
   3) !
     논리 NOT. true 와 false 를 반대로 바꿈
 
@@ -77,6 +77,128 @@
     console.log(str);
       -> hello world
 -->
+
+  <script>
+    console.log("========== 산술 연산자 ==========");
+    const a = 5;
+    const b = 2;
+
+    console.log(a + b); // 5 + 2 = 7
+    console.log(a - b); // 5 - 2 = 3
+    console.log(a * b); // 5 * 2 = 10
+    console.log(a / b); // 5 / 2 = 2.5
+    console.log(a % b); // 1(나머지)
+    console.log(parseInt(a / b)); // 2(나눗셈의 몫)
+  </script>
+
+  <script>
+    console.log("========== 증감 연산자 ==========");
+
+    let n = 1;
+    console.log("++n", ++n); // n을 증가하고 보여줌(1+1 을 보여줌 > 2)
+    console.log("n++", n++); // n을 보여주고 증가함(2를 보여주고 +1 > 최종 3)
+    console.log(n); // n은 최종 3이었으니 3 찍힘
+    // console 안에서도 증감 연산은 동작한다.
+  </script>
+
+  <script>
+    console.log("========== 대입 / 복합대입 연산자 ==========");
+    let i =  10;
+    i += 5; // i = i + 5 == 10 + 5 == 15
+    console.log(i); // 15
+    console.log(i += 5); // i = i + 5 == 15 + 5 == 20
+  </script>
+
+  <script>
+    console.log("========== 비교 연산자, 논리 연산자 ==========");
+
+    const x = 1;
+    const y = "1";
+
+    var typeX = typeof(x);
+    var typeY = typeof(y);
+    console.log("1의 타입은 " + typeX + ", '1'의 타입은 " + typeY);
+
+    console.log(x == y); // 1 == "1" true
+    console.log(x === y); // 1 == "1" false(typeof 가 다르다)
+    console.log(x == y && x === y); // true && false > false (둘 중 하나라도 false이면 false)
+    console.log(x == y || x === y); // true || false > true (둘 중 하나라도 true 이면 true)
+    console.log(!x == y); // !true > false
+  </script>
+
+  <script>
+    // true : 어떤 값이든 가지고 있는 경우
+    // false : 0, "", undefined, null 중 하나인 경우
+    const z = 1;
+    console.log(!z);
+  </script>
+
+  <script>
+    console.log("========== 줄바꿈 ==========");
+    let number1 = 10;
+    let number2 = 10;
+
+    // short circuit : &&의 경우 false 발생 시 즉시 false를 반환하고 연산을 종료합니다.
+    console.log(++number1 == 10 && ++number2 == 10);
+    console.log("number1", number1);
+    console.log("number2", number2);
+
+    // 반대로 ||의 경우 true 발생 시 즉시 true를 반환(뒤 부분은 연산되지 않았기 때문에 number4의 값은 10)
+    let number3 = 10;
+    let number4 = 10;
+    console.log(number3++ == 10 || number4++ == 10); // true || true
+    console.log("number3", number3); // 11
+    console.log("number4", number4); // 10
+
+    let money;
+    console.log(money && 10000); // undefined > 앞 항의 값이 false 이므로 연산이 종료되고, 해당 연산값이 출력
+    money = 1;
+    console.log(money && 10000); // 10000 > 앞 항이 true이므로 뒤의 항이 연산값이 출력
+    // && > and 연산자는 앞에서 ture값이 반환된다면 뒤 연산은 행하지 않고 true의 연산값을 출력
+
+    // short circuit의 실무 예
+    let mone;
+    console.log(mone || 10000); // 디폴트 처리 : mone로 값이 전달되면 전달된 값을 사용하고, 전달되지 않으면 10000을 사용한다.
+  </script>
+
+  <script>
+    console.log("========== 삼항 연산자 ==========");
+
+    let p = -1;
+    console.log(p > 0 ? "양수" : "음수");
+
+    let q = 3;
+    console.log(q % 3 == 0 ? "3의 배수" : "3의 배수가 아님")
+
+    let r = 5;
+    console.log(r % 2 ? "홀수" : "짝수");
+  </script>
+
+  <script>
+    // 연습1) 한 상자에 라면 20개가 들어갑니다. 라면 65개는 몇 상자가 나오고, 몇 개가 남는지 계산
+    console.log("========== 연습문제1 ==========");
+    console.log("한 상자에 라면 20개가 들어갑니다. 라면 65개는 몇 상자가 나오고, 몇 개가 남는지 계산");
+    let oneBox = 20;
+    let total = 65;
+    console.log(`총 ${parseInt(total / oneBox)}상자, 남는 라면은 ${total % oneBox}개`)
+
+    // 연습2) 시급 10,030원 입니다. 10시간 근무하면 일급은 얼마인지 게산하세요. 참고로 8시간 초과 근무 시급은 1.5배 입니다.
+    console.log("========== 연습문제2 ==========");
+    console.log("시급 10,030원 입니다. 10시간 근무하면 일급은 얼마인지 게산하세요. 참고로 8시간 초과 근무 시급은 1.5배 입니다.");
+    const wage = 10030;
+    const time = 10;
+    const pay = wage * time
+    const extraPay = time <= 8 ? 0 : (time - 8) * wage * 0.5;
+    console.log(pay + extraPay);
+
+    let cal = "";
+    cal += "일급 계산\n";
+    cal += "시급 10,030원(초과 근무시간은 1.5배 적용) / 총 근무시간 10시간 = 기본 근무시간 8시간 + 초과 근무시간 2시간\n";
+    cal += "8 * 10030 + 2 * (10030 * 1.5)\n";
+    cal += "80240 + 30090\n";
+    cal += "110330원";
+    console.log(cal)
+  </script>
 
 </body>
 </html>
