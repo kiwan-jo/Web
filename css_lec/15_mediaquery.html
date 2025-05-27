@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>mediaquery</title>
+</head>
+<body>
+  <!-- 
+    mediaquery
+
+    1. 미디어의 종류와 크기에 따라서 레이아웃을 다르게 구성할 수 있습니다.
+    2. 선언: @media
+    3. 종류: screen
+    4. 크기
+      1) width: 100px; 너비가 정확히 100px인 경우
+      2) min-width: 100px; 너비가 100px 이상인 경우(최소 너비가 100px)
+      3) max-width: 100px; 너비가 100px 이하인 경우(최대 버니가 100px)
+      4) orientation: portrait; 화면을 세운 경우(모바일)
+      5) orientation: landscape; 화면을 눕힌 경우(모바일)
+  -->
+
+  <style>
+    div{
+      box-sizing:border-box;
+      padding:0;
+      margin:0;
+      border:1px solid #000;
+      box-sizing:border-box;
+    }
+    /* 1. 너비 580px 이하 : 4행 1열 */
+    @media screen and (max-width:580px){
+      .wrap{
+        width:80%;
+        display:flex;
+        flex-direction:column;
+        margin:0 auto;
+      }
+      .wrap .item{
+        width:100%;
+        background:lime;
+      }
+    }
+
+    /* 2. 너비 581 ~ 1024px : 2행 2열 */
+    @media screen and (min-width:581px) and (max-width:1024px){
+      .wrap{
+        width:80%;
+        display:flex;
+        flex-direction:row;
+        flex-wrap:wrap;
+        justify-content:space-evenly;
+      }
+      .wrap .item{
+        width:50%;
+        background:tomato;
+      }
+    }
+
+    /* 3. 너비 1025px 이상 : 1행 4열 */
+    @media screen and (min-width:1025px){
+      .wrap{
+        width:80%;
+        display:flex;
+        flex-direction:row;
+        flex-wrap:nowrap;
+        justify-content:space-evenly;
+      }
+      .wrap .item{
+        width:25%;
+        background:teal;
+      }
+    }
+  </style>
+  <div class="wrap">
+    <div class="item">item1</div>
+    <div class="item">item2</div>
+    <div class="item">item3</div>
+    <div class="item">item4</div>
+  </div>
+
+  <span class="v_width" style="position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);"></span>
+  
+  
+  <script>
+    window.addEventListener("resize",function(){
+      var vWidth = window.innerWidth
+      document.querySelector(".v_width").textContent = vWidth;
+    })
+  </script>
+</body>
+</html>
