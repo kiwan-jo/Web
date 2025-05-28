@@ -87,103 +87,261 @@
 -->
 
   <script>
-    function hidden1(){
-    // if 문을 이용한 성적 처리
-    let score = prompt("점수를 입력해주세요(0~100)"); // prompt의 입력값은 string 이다.
-    let result;
-    
-    if(score >= 90){
-      result = "수"
-    } else if(score >= 80){
-      result = "우";
-    } else if(score >= 70){
-      result = "미";
-    } else if(score >= 60){
-      result = "양";
-    } else{
-      result = "가";
+    function ifHidden(){
+      // ========================= if ========================= //
+      // if 문을 이용한 성적 처리
+      let score = prompt("점수를 입력해주세요(0~100)"); // prompt의 입력값은 string 이다.
+      let result;
+      
+      if(score >= 90){
+        result = "수"
+      } else if(score >= 80){
+        result = "우";
+      } else if(score >= 70){
+        result = "미";
+      } else if(score >= 60){
+        result = "양";
+      } else{
+        result = "가";
+      }
+      console.log(score, result);
+      console.log(score, typeof score);
+
+      
+      // if 문을 이용한 올바른 계절 출력하기
+      let month = prompt("계절을 알고 싶은 월을 입력하세요(1~12)");
+      let season;
+      if(month >= 3 && month <= 5){
+        season = "봄";
+      } else if(month >= 6 && month <= 8){
+        season = "여름";
+      } else if(month >= 9 && month <= 11){
+        season = "가을";
+      } else{
+        season = "겨울";
+      }
+      
+      // -- 실수로 12 초과 값을 입력해도 올바른 계절이 나올 수 있도록 고려해 보기
+      let mod = month % 12;
+      month = mod;
+      if(mod <= 2){
+        season = "겨울";
+      } else if(mod <= 5){
+        season = "봄";
+      } else if(mod <= 8){
+        season = "여름";
+      } else {
+        season = "가을";
+      }
+      console.log(month + "월은 " + season + "입니다.");
     }
-    console.log(score, result);
-    console.log(score, typeof score);
-   }
     
 
+    // ========================= switch ========================= //
+    function switchHidden(){
+      let number = 1;
+      switch(number){
+        case 1:
+          console.log("1이다");
+          break;
+        case 2:
+          console.log("2이다");
+          break;
+        default :
+          console.log("1,2가 아니다")
+      }
+      
+      let num = prompt("숫자를 입력하세요");
+      switch(num % 2){
+        case 0:
+          console.log("짝수");
+          break;
+        case 1:
+          console.log("홀수");
+          break;
+      }
+      
+      // 오전(0~11) / 오후(12~23) : 12로 나눈 몫
+      let hour = prompt("현재 시간을 입력하세요. (0~23)");
+      switch(parseInt(hour/12)){
+        case 0:
+          console.log(`${hour}시는 오전입니다.`);
+          break;
+        case 1:
+          console.log(`${hour}시는 오후입니다.`)
+      }
+  
+      // string 타입
+      let n = 1;
+      let cmd = "increment"; // increment, decrement
+      switch(cmd){
+        case "increment":
+          console.log(n+1);
+          break;
+        case "decrement":
+          console.log(n-1);
+          break;
+      }
 
-   function hidden2(){
-    // if 문을 이용한 올바른 계절 출력하기
-    let month = prompt("계절을 알고 싶은 월을 입력하세요(1~12)");
-    let season;
-    if(month >= 3 && month <= 5){
-      season = "봄";
-    } else if(month >= 6 && month <= 8){
-      season = "여름";
-    } else if(month >= 9 && month <= 11){
-      season = "가을";
-    } else{
-      season = "겨울";
+      // 계절(봄, 여름, 가을, 겨울)
+      let month = Number(prompt("월을 입력하세요.")) % 12;
+      let season;
+      switch(month){
+        case 0:
+          season = "겨울"
+          month = 12;
+          break;
+        case 1:
+        case 2:
+          season = "겨울";
+          break;
+        case 3:
+        case 4:
+        case 5:
+          season = "봄";
+          break;
+        case 6:
+        case 7:
+        case 8:
+          season = "여름";
+          break;
+        case 9:
+        case 10:
+        case 11:
+          season = "가을";
+          break;
+      }
+      console.log(`${month}월은 ${season}입니다.`)
     }
-    
-    // -- 실수로 12 초과 값을 입력해도 올바른 계절이 나올 수 있도록 고려해 보기
-    let mod = month % 12;
-    month = mod;
-    if(mod <= 2){
-      season = "겨울";
-    } else if(mod <= 5){
-      season = "봄";
-    } else if(mod <= 8){
-      season = "여름";
-    } else {
-      season = "가을";
+
+
+    // ========================= while ========================= //
+    function whileHidden(){
+      // 1,2,3,4,5, 문자열 만들기
+      let value = 1;
+      let str = "";
+
+      while(value <= 5) { // value가 6이면 종료
+        str += value;
+        str += ",";
+        value ++;
+      }
+      console.log(str);
+
+      // 5,4,3,2,1, 문자열 만들기
+      value = 5;
+      str = "";
+      while(value >= 1) {
+        str += value;
+        str += ",";
+        value --;
+      }
+      console.log(str);
+      console.log(value);
+
+
+      // 연습) 1~100 사이 정수 중에서 3,6,9로 끝나는 정수를 쉼표(,)로 연결하는 문자열 만들기
+      // 3,6,9,13,16,19,...,99,
+      let value2 = 1;
+      let str2 = "";
+      while(value2 <= 100) {
+        if(value2 % 10 % 3 == 0 && value2 % 10 != 0){
+          str2 += value2 + ",";
+        }
+        value2 ++;
+      }
+      console.log(str2)
     }
-    console.log(month + "월은 " + season + "입니다.");
-}
+
     
+    // ========================= for ========================= //
+    // 1,2,3,4,5,
+    let str = "";
+    for(let i = 1; i <= 5; i++){
+      str += i + ",";
+    }
+    console.log(str);
+
+    // 연습) <ul><li>1분기</li><li>2분기</li><li>3분기</li><li>4분기</li></ul> 문자열 만들어 화면에 출력하기
+    str = "";
+    str += "<ul>"
+    for(let i = 1; i <= 4; i++){
+      str += "<li>" + i + "분기</li>";
+    }
+    str += "</ul>";
+    document.write(str);
+
+    // 연습) <select><option value = "1">1월</option><option value="2">2월</option>...</select> 문자열 만들어 화면에 출력하기
+    str = "";
+    str += "<select>"
+    for(let i = 1; i <= 12; i++){
+      str += "<option value = '" + i + "'>" + i + "월</option>";
+    }
+    str += "</select>";
+    document.write(str);
+
+    // 1일차 1교시 ... 8교시, 2일차 1교시 ... 8교시 ... 5일차 1교시 ... 8교시(for문 중첩)
+    str = "";
+    for(let day = 1; day <= 5; day ++){
+      str += day + "일차";
+      for(let hour = 1; hour <= 8; hour++){
+        str += " " + hour + "교시"; 
+      }
+      str += ",\n";
+    }
+    console.log(str);
+
+
+    // 연습) <div><img src="../assets/images/??"><img><img></div> X 3 : 총 9개
+    str = "";
+    for(let i = 1; i <= 3; i++){
+      str += "<div>";
+      for(let j = 1; j <= 3; j++){
+        str += `<img src="../assets/images/animal${(j+3*(i-1))}.jpg" style="width:100px; height:100px;">`;
+      }
+      str += "</div>";
+    }
+    document.write(str);
+
+
+    {
+      // 무한 루프: 의도적으로 반복문이 끝나지 않도록 설정한 루프
+      // 1,2,3,4,5, 문자열 출력하기
+      let str = "";
+      let value = 1;
+      while(true){
+        str += value + ",";
+        value++;
+        if(value > 6){
+          break;  // 루프 종료
+        }
+      }
+    }
   </script> 
   <style>
     *{margin:0; padding:0; box-sizing:border-box;}
+    pre{font-size:14px; color:#333; font-family:"맑은 고딕";}
     h2{padding:0 20px;}
     .box{margin:20px; padding-bottom:10px; border:1px solid #aaa; border-radius:5px; overflow:hidden;}
     .box p{min-height:40px; display:flex; align-items:center; line-height:1.2; border-bottom:1px solid #aaa; font-size:16px; padding:0 10px; margin-bottom:10px;}
     .box p span{font-size:12px; color:#aaa; margin-left:auto;}
-    .box input{border:none; border-bottom:1px solid #aaa; margin-left:10px; height:30px; float:left; padding:0 10px; outline:none;}
-    .box button{float:left; height:30px; border:none; border-radius:5px; background:royalblue; color:#fff; font-size:16px; padding:0 16px; margin-left:10px;}
-    .box div{margin-left:20px; line-height:30px; float:left;}
+    .box .b_box{display:flex; align-items:center; padding:0 10px;}
+    .box .b_box input{border:none; border-bottom:1px solid #aaa; height:30px; float:left; padding:0 10px; outline:none;}
+    .box .b_box button{float:left; height:30px; border:none; border-radius:5px; background:royalblue; color:#fff; font-size:16px; padding:0 16px; margin-left:10px;}
+    .box .b_box .result{margin-left:20px; line-height:30px; float:left;}
+    .box .b_box span{margin-left:auto; cursor:pointer;}
+    .box .code{display:none; padding-top:20px; margin-top:10px; border-top:1px solid #aaa;}
   </style>
   <h2>if문</h2>
-  <div class="grade box">
+  <div class="if grade box">
     <p>점수를 입력하세요 <span>(점수를 입력시 수우미양가 로 출력)</span></p>
-    <input type="text"><button>입력</button>
-    <div></div>
-  </div>
-
-  <div class="season box">
-    <p>월을 입력하세요 <span>(월을 입력시 4계절 출력 / 13이상의 숫자에 대해서도 대응)</span></p>
-    <input type="text"><button>입력</button>
-    <div></div>
-  </div>
-  <script>
-    window.addEventListener("DOMContentLoaded",function(){
-      document.querySelector(".season button").addEventListener("click",function(){
-        let inMonth = document.querySelector(".season input").value;
-        let month = (num => num % 12 ? num % 12 : 12)(Number(inMonth));
-        // 즉시 실행 함수 
-        // num은 매개변수, =>(화살표)는 function을 의미, 뒤 Number() 부분이 매개변수에 들어갈 값
-        let season;
-        if(month >= 3 && month <= 5){
-          season = "봄";
-        } else if(month >= 6 && month <=8){
-          season = "여름";
-        } else if(month >=9 && month <= 11){
-          season = "가을";
-        } else {
-          season = "겨울";
-        }
-        document.querySelector(".season div").textContent = `"${month}월"은 "${season}"입니다`;
-      })
-
-
-
-      document.querySelector(".grade button").addEventListener("click",function(){
+    <div class="b_box">
+      <input type="text"><button>입력</button>
+      <div class="result"></div>
+      <span>코드보기</span>
+    </div>
+    <div class="code">
+      <pre>
         let score = document.querySelector(".grade input").value;
         let result;
         
@@ -198,7 +356,200 @@
         } else{
           result = "가";
         }
-        document.querySelector(".grade div").textContent = `성적은 "${result}"입니다`;
+      </pre>
+    </div>
+  </div>
+
+  <div class="if season box">
+    <p>월을 입력하세요 <span>(월을 입력시 4계절 출력 / 13이상의 숫자에 대해서도 대응)</span></p>
+    <div class="b_box">
+      <input type="text"><button>입력</button>
+      <div class="result"></div>
+      <span>코드보기</span>
+    </div>
+    <div class="code">
+      <pre>
+        let inMonth = document.querySelector(".season input").value;
+        let month = (num => num % 12 ? num % 12 : 12)(Number(inMonth));
+        // 즉시 실행 함수 
+        // num은 매개변수, =>(화살표)는 function을 의미, 뒤 Number() 부분이 매개변수에 들어갈 값
+        let season;
+        if(month >= 3 && month <= 5){
+          season = "봄";
+        } else if(month >= 6 && month <=8){
+          season = "여름";
+        } else if(month >=9 && month <= 11){
+          season = "가을";
+        } else {
+          season = "겨울";
+        }
+      </pre>
+    </div>
+  </div>
+
+
+  <h2>switch문</h2>
+  <div class="switch season box">
+    <p>월을 입력하세요 <span>(4계절을 switch를 사용해서 작성)</span></p>
+    <div class="b_box">
+      <input type="text"><button>입력</button>
+      <div class="result"></div>
+      <span>코드보기</span>
+    </div>
+    <div class="code">
+      <pre>
+        let inMonth = document.querySelector(".season.switch input").value;
+        let month = parseInt(inMonth) % 12;
+        let season;
+        switch(month){
+          case 0:
+            season = "겨울"
+            month = 12;
+            break;
+          case 1:
+          case 2:
+            season = "겨울";
+            break;
+          case 3:
+          case 4:
+          case 5:
+            season = "봄";
+            break;
+          case 6:
+          case 7:
+          case 8:
+            season = "여름";
+            break;
+          case 9:
+          case 10:
+          case 11:
+            season = "가을";
+            break;
+        }
+      </pre>
+    </div>
+  </div>
+
+  <div class="switch baesu box">
+    <p>숫자를 입력하세요<span>(3의 배수 구하기)</span></p>
+    <div class="b_box">
+      <input type="text"><button>입력</button><div class="result"></div><span>코드보기</span>
+    </div>
+    <div class="code">
+      <pre>
+        let num = document.querySelector(".baesu.switch input").value;
+        let result;
+        switch(num % 3){
+          case 0:
+            result = "3의 배수입니다.";
+            break;
+          default:
+            result = "3의 배수가 아닙니다."
+        }
+      </pre>
+    </div>
+  </div>
+
+
+
+  <script>
+    window.addEventListener("DOMContentLoaded",function(){
+      document.querySelectorAll(".b_box span").forEach(function(btn){
+        btn.addEventListener("click",function(){
+          var cont = btn.parentElement.nextElementSibling;
+          cont.style.display = (cont.style.display == "none" || cont.style.display == "") ? "block" : "none";
+        })
+      })
+
+
+      // if문
+      // 수우미양가 성적
+      document.querySelector(".grade.if button").addEventListener("click",function(){
+        let score = document.querySelector(".grade.if input").value;
+        let result;
+        
+        if(score >= 90){
+          result = "수"
+        } else if(score >= 80){
+          result = "우";
+        } else if(score >= 70){
+          result = "미";
+        } else if(score >= 60){
+          result = "양";
+        } else{
+          result = "가";
+        }
+        document.querySelector(".grade.if .result").textContent = `성적은 "${result}"입니다`;
+      })
+
+      // 4계절
+      document.querySelector(".season.if button").addEventListener("click",function(){
+        let inMonth = document.querySelector(".season.if input").value;
+        let month = (num => num % 12 ? num % 12 : 12)(Number(inMonth));
+        // 즉시 실행 함수 
+        // num은 매개변수, =>(화살표)는 function을 의미, 뒤 Number() 부분이 매개변수에 들어갈 값
+        let season;
+        if(month >= 3 && month <= 5){
+          season = "봄";
+        } else if(month >= 6 && month <=8){
+          season = "여름";
+        } else if(month >=9 && month <= 11){
+          season = "가을";
+        } else {
+          season = "겨울";
+        }
+        document.querySelector(".season.if .result").textContent = `"${month}월"은 "${season}"입니다`;
+      })
+
+      // ========================================================================================== //
+
+
+      // switch
+      // 4계절
+      document.querySelector(".season.switch button").addEventListener("click",function(){
+        let inMonth = document.querySelector(".season.switch input").value;
+        let month = parseInt(inMonth) % 12;
+        let season;
+        switch(month){
+          case 0:
+            season = "겨울"
+            month = 12;
+            break;
+          case 1:
+          case 2:
+            season = "겨울";
+            break;
+          case 3:
+          case 4:
+          case 5:
+            season = "봄";
+            break;
+          case 6:
+          case 7:
+          case 8:
+            season = "여름";
+            break;
+          case 9:
+          case 10:
+          case 11:
+            season = "가을";
+            break;
+        }
+        document.querySelector(".season.switch .result").textContent = `"${month}월"은 "${season}"입니다`;
+      })
+      
+      // 3의 배수
+      document.querySelector(".baesu.switch button").addEventListener("click",function(){
+        let num = document.querySelector(".baesu.switch input").value;
+        let result;
+        switch(num % 3){
+          case 0:
+            result = "3의 배수입니다.";
+            break;
+          default:
+            result = "3의 배수가 아닙니다."
+        }
+        document.querySelector(".baesu.switch .result").textContent = result;
       })
     })
   </script>
