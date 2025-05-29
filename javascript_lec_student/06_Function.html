@@ -17,10 +17,10 @@
 2. 함수 작성 방법
   1) 함수 선언식
     (1) function 키워드와 함수명으로 정의하고, 호이스팅됩니다.
-    (2) 형식: function 함수명() { ... }
+    (2) 형식: function 함수명() { ... } // 기명 함수 (이름이 있는 함수)
   2) 함수 표현식
     (1) 함수를 변수에 할당합니다. 호이스팅되지 않습니다.
-    (2) 형식: const 변수명 = function() { ... }
+    (2) 형식: const 변수명 = function() { ... } // 익명 함수 (이름이 없는 함수)
   3) 화살표 함수
     (1) 간결한 함수 표현식을 지원합니다. this 바인딩이 불가합니다.
     (2) 형식: const 변수명 = () => { ... }
@@ -37,7 +37,7 @@
 
 4. 매개변수(Parameter)
   1) 함수를 정의할 때 소괄호 안에 선언하는 변수입니다.
-  2) 함수가 호출될 때 전달받는 값(인수, 인자, Argument)을 받아들이는 역할을 하며, 함수 내부에서 지역 변수로 사용됩니다.
+  2) 함수가 호출될 때 전달받는 값(인수, 인자, Argument = 함수에 전달하는 값)을 받아들이는 역할을 하며, 함수 내부에서 지역 변수로 사용됩니다.
   3) 매개변수를 선언할 땐 변수 선언 키워드(var, let, const)를 사용하지 않고, 변수명만 작성합니다.
     function 함수명(arg1, arg2) {
       
@@ -99,6 +99,230 @@
       })
     })
 -->
+<!--
+  <script>
+    // 1. 함수 선언식
+    function declaration(){
+      console.log("declaration 함수가 호출 되었습니다.");
+    }
 
+    // 2. 함수 표현식
+    const expr = function() {
+      console.log("expr 함수가 호출 되었습니다.");
+    }
+
+    // 3. 화살표 함수
+    const arrow = () => {
+      console.log("arrow 함수가 호출 되었습니다.");
+    }
+
+
+    // 함수 호출하기 (함수 실행하기)
+    declaration();
+    expr();
+    arrow();
+  </script>
+
+
+  <script>
+    function info(name,age){  // 매개변수(parameter) : name, age
+      console.log(name, age);
+    }
+    info("홍길동",30);  // 인자(argument) : "홍길동", 30
+    info("김영희",20);  // 인자(argument) : "김영희", 20
+
+    let name = "고길동";
+    let age = 40;
+    info(name,age); // 인자는 변수를 사용해도 됨
+  </script>
+
+
+  <script>
+    // 배열을 받아서 사용하는 함수
+    const infoArray = function(numbers){
+      for(let i = 0; i < numbers.length; i++){
+        console.log(numbers[i]);
+      }
+    }
+
+    infoArray([10,20,30,]);
+
+    // rest 문법을 활용하는 함수
+    const infoRest = function(arg, ...rest){ // 여기서 사용된 rest 매개변수는 배열이다. 나머지 매개변수는 항상 마지막에 선언합니다.
+      console.log(arg + "1");
+      for(let i = 0; i < rest.length; i++){
+        console.log(rest[i]);
+      }
+    }
+
+    // 전달하는 인자(Argument)의 개수가 다른 경우
+    infoRest("x");
+    infoRest("x","y");
+    infoRest("x","y","z");
+  </script>
+
+
+  <script>
+    /*
+    const infoObject = (car) => {
+      const {model,maker,price} = car;
+
+      console.log(car.model);
+      console.log(car.maker);
+      console.log(car.price);
+    }
+      */
+    const infoObject = ({model,maker,price}) => {
+      console.log(model);
+      console.log(maker);
+      console.log(price);
+    }
+
+    infoObject({
+      model : "BMW 530d",
+      maker: "BMW",
+      price : 8000,
+    })
+  </script>
+
+
+  <script>
+    function handle(callback){ // 2. 전달된 익명 함수를 callback 매개변수에 저장 (함수 표현식)
+      callback(); // 3.매개변수 값으로 함수를 호출
+    }
+
+    handle(function(){  // 1. 익명 함수를 handle 함수에 인자로 전달
+      console.log(1);
+    });
+
+    // 연습) greet 함수에 콜백 함수와 이름을 전달하면 해당 이름이 출력되도록 구성
+    function greet(callback,name){ // 2. 전달받은 인자값을 매개변수에 저장
+      callback(name); // 3. 매개변수 name의 값을 다시 callback 함수에 인자값 전달
+    }
+    greet(
+      function(dis){  // 4. 다시 전달받은 인자값 name을 매개변수 dis에 저장
+        console.log(`안녕하세요. ${dis}입니다.`); // 5. 매개변수 dis를 사용
+      },"홍길동"  // 1. greet 함수에 콜백으로 사용할 함수와 name의 인자값을 전달
+    );
+
+    // 연습) summaryArray 함수에 콜백 함수와 양의 정수를 전달하면 1부터 전달된 양의 정수까지 모두 더한 결과를 출력하도록 
+    function summaryArray(summary,num){
+      summary(num);
+    }
+
+    summaryArray(
+      function(num){
+        let total = 0;
+        for(let i = 1; i <= num; i++){
+          total += i;
+        }
+        console.log(`1부터 ${num}까지 합은 ${total}입니다.`)
+      }, 10
+    )
+  </script>
+
+
+  <script>
+    function one(){
+      return 1; // 1. one 함수를 호출한 곳으로 1을 반환
+    }
+
+    const oneResult = one(); // 2. 함수 호출은 반환 값으로 바뀜
+    console.log(oneResult);
+
+    function plusOne(arg){
+      return arg + 1;
+    }
+    console.log(plusOne(10)); // 11
+
+    // 3) 배열을 전달하면 해당 배열의 모든 값을 더한 값을 반환
+    function sumArray(numbers){
+      let total = 0;
+      for(const number of numbers){
+        total += number;
+      }
+      return total;
+    }
+
+    const sumResult = sumArray([1,2,3,4,5])
+    console.log(sumResult); // 15
+
+    // 4) 배열을 반환하는 함수
+    function retArray(){
+      return ["봄","여름","가을","겨울"];
+    }
+
+    const seasons = retArray();
+    console.log(seasons[0],seasons[seasons.length - 1]); // 봄,겨울
+    const [first,,,last] = retArray(); // 배열의 첫 요소와 4번째 요소를 저장하는 구조 분해 할당 문법
+    console.log(first,last); // 봄,겨울
+
+    // 5) 객체를 반환하는 함수
+    function retObject(nickname,age){
+      return {
+        nickname : nickname,  // nickname : 홍길동
+        age : age,    // age : 30
+      }
+    }
+
+    const user = retObject("홍길동","30");
+    console.log(user.nickname, user.age); // 홍길동 30
+    const {nickname} = retObject("김영희",20);
+    console.log(nickname); // 김영희
+
+    // 6) 함수를 반환하는 함수
+    function retFunction(){
+      return function(){
+        console.log("hello world");
+      }
+    }
+    const func = retFunction();
+    func(); // hello world , 이 경우는 ()를 붙여서 함수를 실행(호출) 시켜야 함
+    retFunction()();
+    
+
+    // 함수에 전달하는 데이터를 "인자,인수,argument" 라고 한다.
+    // 함수에 전달된 데이터는 "매개변수"에 저장한다.
+    // 함수 실행 결과를 반환할 땐 "return" 키워드를 사용한다.
+    // 함수는 호출된 이후 "반환값(return value)"으로 바뀝니다.
+-->
+    <script>
+    /*
+    연습) 어떤 놀이기구는 몸무게가 90 이상인 경우 이용이 불가능합니다.
+    몸무게가 40 미만인 경우 부모의 동의가 있으면 있으면 가능합니다.(confirm 함수)
+    나머지 경우에는 부모의 동의가 없어도 이용이 가능합니다.
+    prompt를 이용해서 몸무게를 입력 받아 isPossible 함수에 전달합니다.
+    isPossible 함수는 놀이기구의 이용이 가능하면 true 아니면 false를 반환합니다.
+    최종 실행 시 "놀이기구 탑승이 가능합니다.","놀이기구 탑승이 거절되었습니다." 중 하나의 메시지를 출력
+    */
+
+    // 연습문제
+    function isPossible(weight){
+      if(weight >= 90){
+        return false;
+      } else if(weight < 40){
+        if(confirm("부모 동의 확인") == true){
+          return true;
+        } else {
+          return false;
+        }
+      } else{
+        return true;
+      }
+    }
+    const possible = (pos => pos ? alert("놀이기구 탑승이 가능합니다") : alert("놀이기구 탑승이 거절되었습니다."))(isPossible(prompt("몸무게를 입력해주세요.")));
+
+    /*
+    function poss(){
+      let weight = prompt("무게");
+      if(isPossible(weight)){
+        alert("탑승");
+      } else{
+        alert("거절");
+      }
+    }
+    poss();
+    */
+  </script>
 </body>
 </html>
