@@ -297,6 +297,9 @@
     */
 
     // 연습문제
+
+    // 1안, 2안
+    /*
     function isPossible(weight){
       if(weight >= 90){
         return false;
@@ -310,19 +313,30 @@
         return true;
       }
     }
-    const possible = (pos => pos ? alert("놀이기구 탑승이 가능합니다") : alert("놀이기구 탑승이 거절되었습니다."))(isPossible(prompt("몸무게를 입력해주세요.")));
+    */  
 
-    /*
+    // 3안
+    function isPossible(weight){
+      return (weight >= 90) ? false : (weight >= 40) ? true : confirm("부모 동의 여부");
+    }
+    
+    /* 1안
     function poss(){
       let weight = prompt("무게");
       if(isPossible(weight)){
         alert("탑승");
-      } else{
-        alert("거절");
+        } else{
+          alert("거절");
       }
-    }
-    poss();
+      }
+      poss();
     */
+
+    // 2안
+    // const possible = (pos => pos ? alert("놀이기구 탑승이 가능합니다") : alert("놀이기구 탑승이 거절되었습니다."))(isPossible(prompt("몸무게를 입력해주세요.")));
+
+    // 3안
+    alert(isPossible(prompt("몸무게를 입력해주세요.")) ? "놀이기구 탑승이 가능합니다." : "놀이기구 탑승이 거절되었습니다.")
   </script>
 </body>
 </html>
