@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>semantic</title>
+  <style>
+    *{margin:0; padding:0; box-sizing:border-box;}
+    ul,li{list-style:none;}
+    a{text-decoration:none;}
+    
+    .wrap{max-width:1280px; margin:0 auto; padding:50px 0 0;}
+    .title{text-align:center; margin-bottom:30px;}
+    .gnb{background:#000; box-shadow:0 4px 4px rgba(0,0,0,0.16);}
+    .gnb:after{content:""; display:block; clear:both;}
+    .gnb li{float:left;}
+    .gnb li a{display:block; color:#fff; padding:12px 34px;}
+    .gnb li a:hover{background:green;}
+
+    .main-section{display:flex; border:1px solid #ddd; overflow:hidden; gap:10px;}
+    section{padding:10px; display:flex; flex-direction:column; gap:10px;}
+    .left-section{width:75%; border-right:1px solid #ddd;}
+    .right-section{flex:1; border-left:1px solid #ddd;}
+    
+    article{padding:10px; border:1px solid #ddd; flex:1;}
+    .img{display:block; height:50px; background:gray;}
+    h4{font-size:20px;}
+    footer{display:flex; justify-content:center; align-items:center; background:#ddd; height:150px; margin-top:10px;}
+  </style>
+</head>
+<body>
+   
+  <!--
+    semantic 태그
+    1. 의미를 가지고 있는 구역 태그를 의미합니다.
+    2. <div> 태그로 모두 대체할 수 있습니다.
+    3. 종류
+      1) <header> : 상단
+      2) <nav> : 메뉴바
+      3) <main> : 전체 본문 영역
+      4) <section> : <main>의 일부 영역
+      5) <article> : <section>의 일부 영역
+      6) <aside> : 사이드 영역
+      7) <footer> : 하단 영역
+  -->
+
+  <div class="wrap">
+    <header>
+      <h1 class="title">Website</h1>
+    </header>
+    <nav>
+      <ul class="gnb">
+        <li><a href="#">메뉴1</a></li>
+        <li><a href="#">메뉴2</a></li>
+        <li><a href="#">메뉴3</a></li>
+        <li><a href="#">메뉴4</a></li>
+        <li><a href="#">메뉴5</a></li>
+      </ul>
+    </nav>
+    <main class="main-section">
+      <section class="left-section">
+        <article>
+          <h4 class="sub-title">Title</h2>
+          <p>Description</p>
+          <div class="img"></div>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus a aliquet nisl, in commodo nulla. Sed sagittis massa risus, vel feugiat nisi consectetur vitae. Donec porta libero vitae nisl accumsan faucibus. Maecenas varius tincidunt euismod. Quisque vitae consequat eros, et efficitur neque. Donec odio nisl, hendrerit a feugiat ut, euismod a tellus. Phasellus id augue sapien.</p>
+        </article>
+        <article>
+          <h4 class="sub-title">Title</h2>
+          <p>Description</p>
+          <div class="img"></div>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus a aliquet nisl, in commodo nulla. Sed sagittis massa risus, vel feugiat nisi consectetur vitae. Donec porta libero vitae nisl accumsan faucibus. Maecenas varius tincidunt euismod. Quisque vitae consequat eros, et efficitur neque. Donec odio nisl, hendrerit a feugiat ut, euismod a tellus. Phasellus id augue sapien.</p>
+        </article>
+      </section>
+      <section class="right-section">
+        <article>
+          <h4 class="sub-title">Title</h2>
+          <div class="img"></div>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus a aliquet nisl, in commodo nulla. Sed sagittis massa risus, vel feugiat nisi consectetur vitae. Donec porta libero vitae nisl accumsan faucibus. Maecenas varius tincidunt euismod. Quisque vitae consequat eros, et efficitur neque.</p>
+        </article>
+        <article>
+          <h4 class="sub-title">Title</h2>
+          <div class="img"></div>
+        </article>
+      </section>
+    </main>
+    <footer>
+      <p>footer</p>
+    </footer>
+  </div>
+        
+</body>
+</html>
