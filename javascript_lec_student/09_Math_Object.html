@@ -47,5 +47,80 @@ Math 내장 객체
   2) 암호학적으로 안전한 난수를 제공하지 않으므로 보안과 관련된 용도로 사용 금지(대신 window.crypto.getRandomValues() 메소드 권장)
 -->
 
+  <script>
+    // 난수 조정하기
+    // Math.random()                      0.0 <= 난수 < 1.0
+    // Math.random() * 5                  0.0 <= 난수 < 5.0
+    // Math.floor(Math.random() * 5)      0 <= 난수 < 5
+    // Math.floor(Math.random() * 5 + 1)  1 <= 난수 < 6
+
+
+    // 로또 만들기(개인)
+    const lotto = () => {
+      let numbers = [];
+      let num1 = ""; // 이전 숫자
+      let num2 = "";
+      for(let i = 1; i <= 6; i++){
+        num2 = Math.floor(Math.random() * 45 + 1);
+        if(num1 == num2){
+          num2 = Math.floor(Math.random() * 45 + 1);
+        } else{
+
+        }
+        num1 = num2;
+        numbers.push(num2);
+      } 
+      // 직전의 숫자랑만 비교하게 됨
+
+      return numbers;
+    }
+
+    console.log(lotto());
+
+
+    const lotto2 = () => {
+      // 중복개선
+      let numbers = [];
+      while (numbers.length < 6){
+        const num = Math.floor(Math.random() * 45 + 1);
+        if(!numbers.includes(num)){
+          numbers.push(num);
+        }
+      }
+
+      return numbers;
+    }
+
+    console.log(lotto2());
+
+
+    // 연습) 전달된 두 값 사이의 난수를 반환하는 함수를 구현
+    // 1과 10 전달 시 1~9 사이 난수 발생
+
+    const getRandom = (num1,num2) => {
+      return number = Math.floor(Math.random() * (num2 - num1) + num1);
+    }
+
+    console.log(getRandom(1,10));
+  </script>
+
+  <script>
+    // 연습) 원하는 자릿수로 올림 처리한 결과를 반환하는 함수를 구현하세요.
+    // getCeil(123.45, 1) 123.5
+    // getCeil(123.45, 0) 124
+    // getCeil(123.45)    124
+    // getCeil(123.45, -1) 130
+    // getCeil(123.45, -2) 200
+
+    const getCeil = (number, digit = 0) => Math.ceil(number * Math.pow(10,digit)) / Math.pow(10,digit);
+    const value = 123.456
+    console.log(getCeil(value, 2));
+    console.log(getCeil(value, 1));
+    console.log(getCeil(value, 0));
+    console.log(getCeil(value));
+    console.log(getCeil(value, -1));
+    console.log(getCeil(value, -2));
+
+  </script>
 </body>
 </html>
