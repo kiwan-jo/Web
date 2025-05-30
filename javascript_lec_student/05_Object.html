@@ -102,5 +102,36 @@
     console.log(person["age"]);
     console.log(person["hobbies"]);
   </script>
+
+
+  <script>
+    const user = {
+      name : "jackson",
+      age : 20,
+      phone : "010-1111-2222",
+      gender : "male",
+      addr : "seoul",
+    }
+
+    // 객체나 배열에서 사용할 수 있는 새로운 연산자 : 스프레드 연산자(...)
+    // 객체나 배열을 펼쳐서(복사해서) 새로운 객체나 배열을 만들 때 사용
+    const newUser = {
+      ...user,  // 객체 user의 모든 프로퍼티를 펼쳐서 사용
+      age : 21, // age만 덮어쓰기
+    }
+    console.log(newUser)
+  </script>
+
+  <script>
+    // 객체 리터럴 생성 시 프로퍼티와 값이 동일한 경우
+    // 프로퍼티만 작성가능(프로퍼티 단축 표기법)
+    const title = "미션임파서블";
+    const actor = "톰크루즈";
+    const movie = {
+      title,  // title : title
+      actor,  // actor : actor
+    }
+    console.log(movie)
+  </script>
 </body>
 </html>
