@@ -100,5 +100,142 @@ String 내장 객체
   2) 한쪽 끝의 공백만 제거하려면 trimStart() 나 trimEnd() 를 사용
 -->
 
+  <script>
+    {
+      // 문자열과 인덱스 살펴보기
+      const str = "JavaScript";
+      console.log("첫글자", str.charAt(0));
+      console.log("마지막 글자", str.charAt(str.length -1));
+      console.log("첫 글자", str.at(0));
+      console.log("마지막 글자", str.at(-1));
+
+      console.log("첫 번째 소문자 a의 인덱스", str.indexOf("a"));
+      console.log("두 번째 소문자 a의 인덱스", str.indexOf("a",2));  // 첫 번째가 1이었으므로, 2번째를 구하고자 하면 1이후부터 찾는다(그래서 2부터 시작하도록 2 옵션 추가)
+      console.log("마지막 소문자 a의 인덱스", str.lastIndexOf("a"));
+
+      console.log("Java", str.substring(0,4)); // 인덱스 0 <= 문자열 < 인덱스 4
+      console.log("Script", str.substring(4)); // 인덱스 4 <= 문자열
+      
+      // 연습) 파일명과 확장자를 분리해보자.
+      const fullname = "aaa.bbb.ccc.ddd.eee.jpg";
+      const filename = fullname.substring(0,fullname.lastIndexOf("."));
+      const extname = fullname.substring(fullname.lastIndexOf(".") + 1);
+      console.log("파일명", filename);
+      console.log("확장자", extname);
+    }
+
+    {
+      // 원하는 문자열이 포함되어있는지 확인
+      const str = "Hello JavaScript Nice To Meet You";
+      console.log(str.startsWith("Hello"));
+      console.log(str.endsWith("You"));
+      console.log(str.includes("JavaScript"));
+
+
+      // 연습) 배열에 저장된 객체를 순회하면서 다음 작업을 진행하세요.
+      //       배열에 저장된 자동차 객체의 모델명이 "K,k"로 시작하면 제조사(maker)를 "Kia"로 저장
+      let cars = [
+        {
+          model : "k9"
+        },
+        {
+          model : "e300"
+        },
+        {
+          model : "G80"
+        },
+        {
+          model : "530i"
+        },
+        {
+          model : "k5"
+        }
+      ]
+
+      cars = cars.map(car => {
+        if(car.model.startsWith("K") || car.model.startsWith("k")){
+          car.maker = "Kia"; // 연습) 배열에 저장된 객체를 순회하면서 다음 작업을 진행하세요.
+      //       배열에 저장된 자동차 객체의 모델명이 "K,k"로 시작하면 제조사(maker)를 "Kia"로 저장
+      let cars = [
+        {
+          model : "k9"
+        },
+        {
+          model : "e300"
+        },
+        {
+          model : "G80"
+        },
+        {
+          model : "530i"
+        },
+        {
+          model : "k5"
+        }
+      ]
+
+      cars = cars.map(car => {
+        if(car.model.startsWith("K") || car.model.startsWith("k")){
+          car.maker = "Kia";
+        }
+
+        return car;
+      })
+      console.log(cars);
+        }
+
+        return car;
+      })
+      console.log(cars);
+      
+      
+    }
+
+    {
+      // 문자 채우기
+      const str = "JavaScript";
+      console.log(str.padStart(15,"*"));  // 전체 길이가 15가 되도록 앞에 * 채우기
+      console.log(str.padEnd(15,"*"));    // 전체 길이가 15가 되도록 뒤에 * 채우기
+      
+      // 기존 문자열의 일부를 다른 문자열로 바꾸기
+      console.log(str.replace("a","A"));    // JAvaScript (첫 번째 "a"를 "A"로 바꾸기)
+      console.log(str.replaceAll("a","A")); // JAvAScript (모든 "a"를 "A"로 바꾸기)
+
+      // 정규 표현식을 이용한 바꾸기가 가능하므로 가급적 정규 표현식을 배운 뒤 replace, replaceAll 활용 권장
+    }
+
+    {
+      // 문자열과 배열 다루기
+      
+      
+      // 1) 문자열을 배열로 분해 : 한 글자씩 분해
+      const str = "Hello World";
+      const arr = [...str]; // 스프레드 연산자(...) 사용
+      console.log(arr);
+      console.log(str[0]);
+
+      // 2) 문자열을 배열로 분해하기 : 원하는 구분자를 전달해서 분해
+      const data = "봄,여름,가을,겨울";
+      const seasons = data.split(",");
+      console.log(seasons);
+
+      // 연습) 파일명과 확장자를 분리해보자.
+      const fullname = "aaa.bbb.ccc.ddd.eee.jpg";
+      const arrFullName = fullname.split(".");  // ["aaa","bbb","ccc","ddd","eee","jpg"]
+      // const extname = arrFullName.at(-1);
+      const extname = arrFullName.pop();        // jpg
+      const filename = arrFullName.join(".");   // aaa.bbb.ccc.ddd.eee
+
+      console.log("파일명", filename);
+      console.log("확장자", extname);
+
+      // 연습) 모든 점(.)을 밑줄로 바꿔보자. (풀이 제한 : split, join으로 풀기)
+      const ip = "192.168.0.0";
+      const arrIp = ip.split(".");
+      const reIp = arrIp.join("_");
+      console.log(arrIp);   // ["192","168","0","0"]
+      console.log(reIp);    // 192_168_0_0
+    }
+  </script>
 </body>
 </html>

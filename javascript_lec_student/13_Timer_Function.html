@@ -53,6 +53,89 @@
       let intervalID = setInterval();
       clearInterval(intervalID);
 -->
+  <script>
+    /*
+    {
+      const id = setTimeout(() => {
+        alert("Hello World");
+      }, 1000)
+      console.log(id);
+      alert(id);  // setTimeout은 비동기 함수이므로, 실행 순서에 영향을 미치지 않습니다.
+                  // 비동기 함수란 실행의 완료를 기다리지 않고, 다음 실행을 진행하는 함수수
 
+      clearTimeout(id)  // 타이머 아이디가 id인 타이머를 취소
+    }
+    */
+      
+    {
+      /*
+      alert("Hello");
+      setTimeout(() => {
+        alert("World");
+      }, 5000);
+      */
+
+      /*
+      // 3초 후 "Hello" 출력 후 3초 지나면 "World" 출력하기 (콜백 지옥 : Callback Hell)
+      setTimeout (() => {
+        alert("Hello");
+        setTimeout (() => {
+          alert("World");
+        }, 3000)
+      }, 3000)
+      */
+    }
+
+    {
+      // 연습) 1초마다 화면에 1씩 줄어든 값을 보여주는 타이머를 구현
+      //       전달한 인자 값에 따라 타이머가 동작
+      //       timer(3) 호출하면 화면에 "3","2","1","타이머완료" 메시지가 순차적으로 나타난다.
+
+      /*
+      const timer = sec => {
+        setTimeout(() => {
+          if(sec == 0){
+            document.getElementById("timer").textContent = "타이머완료";  
+            return;  // setTimeout에 전달한 화살표 함수를 종료합니다. 그러면 timer 함수를 더 이상 호출할 수 없으므로 전체 타이머가 종료
+          }
+          document.getElementById("timer").textContent = sec--;
+          timer(sec); // timer 함수 내부에서 timer 함수를 호출. 이와 같은 호출을 재귀 호출 이라 함.
+        }, 1000)
+      }
+      */
+
+      // timer(3);
+    }
+
+    {
+      /*
+      let count = 0;
+      const id = setInterval(() => {
+        count++;
+        console.log(count + "번째 Hello World");
+        if(count === 5){
+          clearInterval(id);
+        }
+      }, 1000)
+      */
+
+
+      // 연습) 1초마다 화면에 1씩 줄어든 값을 보여주는 타이머를 구현
+      //       전달한 인자 값에 따라 타이머가 동작
+      //       timer(3) 호출하면 화면에 "3","2","1","타이머완료" 메시지가 순차적으로 나타난다.
+      const timer = second => {
+        const id = setInterval(() => {
+          document.getElementById("timer").textContent = second;
+          if(second === 0){
+            document.getElementById("timer").textContent = "타이머완료";
+            clearInterval(id)
+          }
+          second--;
+        }, 500)
+      }
+      timer(3);
+    }
+  </script>
+  <span id="timer" style="position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); font-size:40px; font-weight:bold;"></span>
 </body>
 </html>

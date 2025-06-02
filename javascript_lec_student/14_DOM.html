@@ -21,7 +21,7 @@
   <body>                                  HEAD             BODY
     <h1>Header</h1>                        ↓             ↙      ↘
     <p>Paragraph</p>                     TITLE        H1          P
-  </body>                                  ↓           ↓          ↓
+  </bod>                                  ↓           ↓          ↓
   </html>                            "My Document"  "Header"  "Paragraph"
 
                       DOM 객체 계층 구조
@@ -171,5 +171,99 @@
                | checked="checked"  |
 -->
 
+  
+  <script>
+    document.addEventListener("DOMContentLoaded",function(){
+      {
+        // HTMLElement 객체를 반환하는 메소드 다루기
+        const box1 = document.getElementById("box1");
+        const box2 = document.querySelector("#box2");
+        console.log(box1)
+        console.log(box2);
+        console.log(document.querySelector(".my_box")); // 첫 번째 요소만 선택
+      }
+      
+      {
+        // HTMLCollection 객체를 반환하는 메소드 다루기
+        const divList = document.getElementsByClassName("my_box");
+        console.log(divList);
+      }
+
+      {
+        // NodeList 객체를 반환하는 메소드 다루기
+        const divList = document.querySelectorAll("div");
+        const myBoxList = document.querySelectorAll(".my_box");
+        console.log(divList);
+        console.log(myBoxList);
+      }
+    })
+  </script>
+
+  <div id="box1" class="my_box">my box1</div>
+  <div id="box2" class="my_box">my box2</div>
+  <div id="box3" class="my_box">my box3</div>
+
+  <ol id="seasons">
+    <!-- 스크립트로 html 채우기 -->
+  </ol>
+  <script>
+    {
+      //  DOM 조작하기 : HTML 요소 조작하기 (태그 조작)
+      const ol = document.getElementById("seasons");
+      const seasons = ["spring","summer","autumn","winter"];
+      let str = "";
+      seasons.forEach(season => str += "<li>" + season + "</li>");
+      const fourSeasons = str;
+      ol.innerHTML = fourSeasons;
+    }
+  </script>
+
+  <hr>
+
+  <p id="paragraph"><strong>나는 문단이다.</strong></p>
+
+  <script>
+    {
+      // DOM 조작하기 : 텍스트 조작
+      const paragraph = document.getElementById("paragraph");
+      console.log(paragraph.textContent);
+      console.log(paragraph.innerText);
+      paragraph.textContent = "문단에 전달하는 텍스트입니다.";
+      paragraph.textContent += "문단에 추가하는 텍스트입니다.";
+    }
+  </script>
+
+  <hr>
+
+  <p><a id="naver-link" href="https://www.naver.com">네이버</a></p>
+  <script>
+    const naverLink = document.getElementById("naver-link");
+    naverLink.style.color = "red";
+    naverLink.style["text-decoration"] = "none";
+  </script>
+
+  <hr>
+
+  <p>
+    <input type="text" id="id" class="inp" value="admin" readonly>
+  </p>
+
+  <script>
+    {
+      const input = document.getElementById("id");
+      console.log("type 속성", input.getAttribute("type"));
+      console.log("id 속성", input.getAttribute("id"));
+      console.log("class 속성", input.getAttribute("class"));
+      console.log("value 속성", input.getAttribute("value"));
+      console.log("readonly 속성", input.getAttribute("readonly"));
+      console.log("name 속성", input.getAttribute("name"));
+
+      // 속성 변경
+      input.setAttribute("value", "master");
+
+      // 속성 삭제
+      input.removeAttribute("readonly");
+    }
+  </script>
 </body>
 </html>
