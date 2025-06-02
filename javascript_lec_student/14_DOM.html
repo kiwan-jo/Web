@@ -173,6 +173,7 @@
 
   
   <script>
+    /*
     document.addEventListener("DOMContentLoaded",function(){
       {
         // HTMLElement 객체를 반환하는 메소드 다루기
@@ -197,6 +198,7 @@
         console.log(myBoxList);
       }
     })
+      */
   </script>
 
   <div id="box1" class="my_box">my box1</div>
@@ -247,7 +249,6 @@
   <p>
     <input type="text" id="id" class="inp" value="admin" readonly>
   </p>
-
   <script>
     {
       const input = document.getElementById("id");
@@ -263,6 +264,33 @@
 
       // 속성 삭제
       input.removeAttribute("readonly");
+    }
+  </script>
+
+  <hr>
+
+  <p>
+    <input type="text" id="pw" class="inp" value="1234" readonly>
+  </p>
+  <script>
+    {
+      // 속성(Property) 다루기 : DOM Tree에서 처리하는 속성을 의미
+      const input = document.getElementById("pw");
+      console.log(input) // 프로퍼티 확인하기
+
+      // 프로퍼티 확인
+      console.log(input.type);
+      console.log(input.id);
+      console.log(input.className);
+      console.log(input.value);
+      console.log(input.readOnly);
+
+      // 프로퍼티 수정
+      input.type = "password";
+      input.readOnly = false;
+
+      // 프로퍼티 삭제 (DOM 객체의 프로퍼티는 지울 수 없다.)
+      delete input.value;
     }
   </script>
 </body>
