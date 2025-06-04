@@ -130,5 +130,320 @@
     (3) 이벤트 객체의 event.target을 이용해 실제 이벤트가 발생한 하위 요소를 식별하고, 필요한 작업을 수행합니다.
 -->
 
+  <div id="box1"></div>
+  <button type="button" id="btn1">고전이벤트모델</button>
+  <script>
+    const box1 = document.getElementById("box1");
+    const btn1 = document.getElementById("btn1");
+
+    btn1.onclick = function(){ // 고전 이벤트 모델은 이벤트 핸들러 프로퍼티(on으로 시작하는 프로퍼티)를 사용한다.
+      box1.textContent = "Hello World";
+    }
+    btn1.onclick = function(){ // 고전 이벤트 모델은 하나의 핸들러만 등록할 수 있습니다. 기존 핸들러는 무시된다.
+      alert("Hello World");
+    }
+
+    function a(){
+      box1.textContent = "Hello World";
+    }
+    function b(){
+      alert("Hello World");
+    }
+    btn1.onclick = function(){
+      a();
+      b();
+    }
+  </script>
+
+  <hr>
+
+  <div id="box2"></div>
+  <button type="button" id="btn2">이벤트객체</button>
+  <script>
+    const box2 = document.getElementById("box2");
+    const btn2 = document.getElementById("btn2");
+    btn2.onclick = function(e){ // 클릭 이벤트가 발생하면 브라우저가 이벤트 객체를 생성한 뒤 이벤트 핸들러로 전달
+      console.log(e.target);  // <button type="button" id="btn2">이벤트객체</button>
+      console.log(e.type);    // click
+    }
+  </script>
+
+  <hr>
+
+  <div id="box3"></div>
+  <button id="btn3">표준 이벤트 모델</button>
+  <script>
+    const box3 = document.getElementById("box3");
+    const btn3 = document.getElementById("btn3");
+    btn3.addEventListener("click",function(){ // 표준 이벤트 모델은 addEventListener 메소드에 이벤트 타입과 이벤트 핸들러를 전달
+      // box3.innerHTML = "<strong>Hello world</strong>";
+      box3.textContent = "Hello world";
+      box3.style.fontWeight = "bold";
+    })
+    btn3.addEventListener("click",function(e){ // 표준 이벤트 모델은 여러 개의 이벤트 핸들러를 모두 처리
+      console.log(e.target);
+      console.log(this);
+
+      // this 와 e.target 가 항상 같은 것은 아니다.(해당 경우는 같게 나옴 > this 사용 안해보기 권장 > 화살표 함수에서는 this가 window 전역개체로 나와서 this 사용이 기존과 다름)
+    })
+    btn3.addEventListener("click",function(e){ // 이벤트 객체(e)를 통해서 이벤트 대상(target)의 정보를 사용할 수 있다.
+      let btnText = this.textContent;
+      alert(btnText + " / " + e.target.textContent);
+    })
+  </script>
+
+  <hr>
+
+  <div id="box4">box4</div>
+  <button id="btn4" onclick= "javascript:getElementById('box4').style.color = '#000'; getElementById('box4').style.background = 'none';">인라인 이벤트 모델</button>
+  <button id="btn4" onclick= inline();>인라인 이벤트 모델</button> <!-- 인라인 이벤트 모델은 on으로 시작하는 이벤트 속성(Event Attribute)을 사용 -->
+  <script>
+    const box4 = document.getElementById("box4");
+    function inline(){ // 인라인 이벤트에서 자주 사용하는 방식은 함수 선언 후 호출
+      const e = window.event; // 인라인 이벤트 모델 에서 이벤트 객체 구하는 방법
+      box4.style.color = "red";
+      box4.style["background-color"] = "gray";
+      console.log(e.target);
+      box4.textContent = e.target.textContent;
+    }
+  </script>
+
+  <hr>
+
+  <style>
+    .bubble{padding:10px; border:1px solid #000;}
+    .parent{padding:10px; border:1px solid #000;}
+    .child{padding:10px; border:1px solid #000;}
+  </style>
+  <div id="ancestor" class="bubble">
+    조상 ancestor
+    <div id="parent" class="parent">
+      부모 parent
+      <div id="child" class="child">
+        자식 child
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const ancestor = document.getElementById("ancestor");
+    const parent = document.getElementById("parent");
+    const child = document.getElementById("child");
+    ancestor.addEventListener("click",function(e){
+      console.log("최초 이벤트 발생 target : ", e.target);
+      console.log("현재 이벤트 발생 target : ", e.currentTarget);
+      console.log("==========================================================");
+    })
+    parent.addEventListener("click",function(e){
+      console.log("최초 이벤트 발생 target : ", e.target);
+      console.log("현재 이벤트 발생 target : ", e.currentTarget);
+      e.stopPropagation(); // 이벤트 전파를 방지. 더 이상 이벤트는 전달되지 않음
+    })
+    child.addEventListener("click",function(e){
+      console.log("최초 이벤트 발생 target : ", e.target);
+      console.log("현재 이벤트 발생 target : ", e.currentTarget);
+    })
+    // currentTarget 은 이벤트핸들러가 있는 요소, tartet은 이벤트가 발생한 요소의 최하위 요소
+  </script>
+
+  <hr>
+
+  <!-- 개인 확인용 -->
+  <ul style="display:flex; list-style:none;">
+    <li id="l1" style="padding:0 10px; cursor:pointer; border-right:1px solid #ddd;"><span id="s1">메뉴1</span></li>
+  </ul>
+
+  <script>
+    const li1 = document.getElementById("l1");
+
+    li1.addEventListener("click",function(e){
+      console.log("target", e.target);
+      console.log("currentTarget", e.currentTarget);
+    })
+  </script>
+
+  <hr>
+
+  <div id="list"></div>
+  <script>
+    const data = {
+      items : [
+        {
+          no : 1,
+          title : "제목1",
+          content : "내용1"
+        },
+        {
+          no : 2,
+          title : "제목2",
+          content : "내용2"
+        },
+        {
+          no : 3,
+          title : "제목3",
+          content : "내용3"
+        }
+      ]
+    }
+    const str = data.items.map((item,index) => `<div class="item" data-no="${item.no}" id="item${index + 1}"><span>${item.no}</span><span>${item.title}</span><span>${item.content}</span></div>`).join(""); // return, () 생략 가능 > 함수식이 한줄이어서 가능
+    document.getElementById("list").innerHTML = str;
+    const itemList = document.getElementsByClassName("item"); // 유사배열
+    console.log(itemList);
+    for(let i = 0; i < itemList.length; i++){
+      itemList[i].addEventListener("click",function(e){ // div 태그의 클릭 이벤트 (부모 클릭)
+        // console.log(e.target);       // e.target : 이벤트가 발생한 가장 안쪽 요소 <span>태그
+        console.log(e.currentTarget);   // e.currentTarget : 이벤트가 실제로 발생한 요소. <div>태그 > 이벤트 핸들링이 있는 요소
+        console.log(e.currentTarget.dataset.no); // <div>태그의 data-no 값, data-"" 의 값을 가져올때는 dataset."" 사용
+      })
+    }
+  </script>
+  <hr>
+
+  <style>
+    table{border-collapse:collapse;}
+    table td{width:100px; height:100px; border:1px solid #000; text-align:center;}
+  </style>
+  <table id="panel">
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+    const panel = document.getElementById("panel");
+    panel.addEventListener("click",function(e){
+      console.log(e.target.textContent);
+      // target 을 활용하면, td 태그의 각각 이벤트를 추가하지 않고 target으로 구분해서 하나의 함수안에 동작 구현이 가능
+
+      // 예제)
+      let color;
+      switch (e.target.textContent){
+        case "1":
+          bg = "red";
+          color = "black";
+          break;
+        case "2":
+          bg = "orange";
+          color = "black";
+          break;
+        case "3":
+          bg = "yellow";
+          color = "black";
+          break;
+        case "4":
+          bg = "green";
+          color = "black";
+          break;
+        case "5":
+          bg = "blue";
+          color = "white";
+          break;
+        case "6":
+          bg = "navy";
+          color = "white";
+          break;          
+        case "7":
+          bg = "purple";
+          color = "white";
+          break;
+        case "8":
+          bg = "black";
+          color = "white";
+          break;
+        case "9":
+          bg = "white"
+          color = "black";
+          break;
+      }
+
+      document.querySelectorAll("#panel td").forEach(function(td){
+        td.style.background = bg;
+        td.style.color = color;
+        td.style.borderColor = color;
+      })
+    })
+  </script>
+
+  <hr>
+
+  <form action="/somewhere" method="get" id="form">
+    <input type="text" name="name" id="name">
+    <button type="submit">제출</button>
+  </form>
+  <script>
+    const form = document.getElementById("form");
+    const name = document.getElementById("name");
+    form.addEventListener("submit",function(e){ // submit 이벤트는 form에 연결
+      if(name.value.trim() === ""){ // 
+        alert("이름을 입력하세요.")
+        name.focus();
+        e.preventDefault(); // 이벤트를 막는 방법 ★★★★★ 중요
+      }
+    })
+  </script>
+
+  <hr>
+
+  <!-- 
+    this
+
+    1. 어떤 함수를 호출하는 객체를 의미
+    2. 함수에 따라서 this에 연결된(바인딩) 객체가 달라진다.
+      1) 일반 전역 함수, 콜백 함수 등  : window 전역 객체
+      2) 객체의 프로퍼티에 저장한 함수 : 해당 객체
+    3. 함수는 암묵적으로 this를 전달 받아서 사용할 수 있다. (this를 전달 받을 필요는 없다. 그냥 사용 가능)
+  -->
+  <button type="button" id="btn5">this바인딩</button>
+  <script>
+    // 일반 전역 함수
+    function globalFunc(){
+      console.log(this); // window 전역 개체
+    }
+    globalFunc();
+
+    // 콜백 함수
+    function callbackFunc(callback){
+      callback();
+    }
+    callbackFunc(function(){
+      console.log(this); // window 전역 개체
+    })
+
+    // 객체의 프로퍼티에 저장한 함수
+    const user = {
+      name : "tom",
+      favorite : function(){ // 익명 함수 : 함수를 포함한 객체가 this에 바인딩
+        console.log(this); // user 객체(본인)
+      },
+      hate: () => { // 화살표 함수 : window 전역 객체가 this에 바인딩
+        console.log(this);  // window 전역 개체 (일반적으로 생각하는 this 보다 상위 요소가 선택됨)
+      }
+    }
+    user.favorite();
+    user.hate();
+
+    // 이벤트와 this
+    const btn5 = document.getElementById("btn5");
+    btn5.addEventListener("click",function(){
+      console.log(this);  // 익명 함수로 만든 이벤트 핸들러에서 사용하는 this는 target을 의미
+    })
+    btn5.addEventListener("click",() => {
+      console.log(this);  // 화살표 함수로 만든 이벤트 핸들러에서 사용되는 this는 window 전역 개체
+    })
+  </script>
 </body>
 </html>
