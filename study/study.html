@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공부용</title>
+    <link rel="stylesheet" href="css/atom-one-dark.min.css">
+    <link rel="stylesheet" href="css/study.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="JS/study.js"></script>
+</head>
+<body>
+    <div class="wrap">
+        <!-- gnb -->
+        <nav class="gnb">
+            <ul>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+            </ul>
+        </nav>
+        <div class="main">
+            <!-- lnb -->
+            <div class="lnb">
+                <ul class="l_html" data-type="html" style="display:none;">
+
+                </ul>
+                <ul class="l_css" data-type="css" style="display:none;">
+                    
+                </ul>
+                <ul class="l_js" data-type="js">
+                    <li>Variable</li>
+                    <li>Operator</li>
+                    <li>Control</li>
+                    <li>Array</li>
+                    <li>Object</li>
+                    <li>Function</li>
+                    <li>Array_Object</li>
+                    <li>Number_Object</li>
+                    <li>Math_Object</li>
+                    <li>Date_Object</li>
+                    <li>JSON_Object</li>
+                    <li>String_Object</li>
+                    <li>Timer_Fuction</li>
+                    <li>DOM</li>
+                    <li>Event</li>
+                </ul>
+            </div>
+
+            <!-- main_cont -->
+            <div class="main_cont">
+                <div class="cont_wrap html" style="display:none;">
+
+                </div>
+                <div class="cont_wrap css" style="display:none;">
+                    
+                </div>
+                <div class="cont_wrap js">
+                    <div class="cont Variable">
+                        <h1 class="main_title">Variable</h1>
+                        <div class="cont_box">
+                            <h2>1. JavaScript primitive (원시값)<span>코드보기</span></h2>
+                            <div class="des">
+                                <p>1) 객체가 아니면서 메소드(method)와 속성(property)을 가지지 않는 데이터</p>
+                                <p>2) 종류
+                                    <ol class="number">
+                                        <li><span>string</span> :&nbsp;&nbsp;&nbsp;문자 타입</li>
+                                        <li><span>number</span> :&nbsp;&nbsp;&nbsp;숫자 타입</li>
+                                        <li><span>boolean</span> :&nbsp;&nbsp;&nbsp;true(데이터가 있으면 true로 간주 - 1, 1.5, 문자열) / false(데이터가 없으면 false로 간주 - 0, 0.0, "", undefined, null)</li>
+                                        <li><span>undefined</span> :&nbsp;&nbsp;&nbsp;선언 후 값을 할당하지 않은 변수 또는 값이 전달되지 않은 매개변수에 자동으로 할당되는 값</li>
+                                        <li><span>null</span> :&nbsp;&nbsp;&nbsp;존재하지 않거나 유효하지 않은 object 또는 주소를 의도적으로 가리키는 참조</li>
+                                    </ol>
+                                </p>
+                            </div>
+                            <div class="code">
+                                <pre>
+                                    <code class="language-javascript">
+                                        // typeof - 값의 데이터 타입 을 확인할 때 사용
+                                        console.log(typeof "Hello");        // string(문자열)
+                                        console.log(typeof "1");            // string(문자열 - ""을 사용하였기 떄문에 숫자 X)
+                                        console.log(typeof 1);              // number(숫자)
+                                        console.log(typeof true);           // boolean
+                                        console.log(typeof false);          // boolean
+                                        console.log(typeof undefined);    // undefined
+                                        console.log(typeof null);           // null
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                        <div class="cont_box">
+                            <h2>2. JavaScript 변수 선언<span>코드보기</span></h2>
+                            <div class="des">
+                                <table style="display:inline-block;">
+                                    <colgroup>
+                                        <col width="130px">
+                                        <col width="130px">
+                                        <col width="130px">
+                                        <col width="130px">
+                                        <col width="130px">
+                                        <col width="130px">
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>스코프</th>
+                                            <th>재선언</th>
+                                            <th>할당 전</th>
+                                            <th>재할당</th>
+                                            <th>용도</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>var</td>
+                                            <td>전역 스코프</td>
+                                            <td>가능</td>
+                                            <td>undefined</td>
+                                            <td>가능</td>
+                                            <td>전역 변수</td>
+                                        </tr>
+                                        <tr>
+                                            <td>let</td>
+                                            <td>블록 스코프</td>
+                                            <td>불가능</td>
+                                            <td>undefined</td>
+                                            <td>가능</td>
+                                            <td>지역 변수</td>
+                                        </tr>
+                                        <tr>
+                                            <td>const</td>
+                                            <td>블록 스코프</td>
+                                            <td>불가능</td>
+                                            <td>사용 불가능</td>
+                                            <td>불가능</td>
+                                            <td>상수</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="code">
+                                <pre>
+                                    <code class="language-javascript">
+                                        // 코드 블록 구성하기 : { ... }
+                                        {
+                                            // 변수 a 선언
+                                            var a;
+                                            console.log(a); // undefined (var의 값을 할당하기 전에는 undefined)
+
+                                            // 변수 a 재선언 (var 가능)
+                                            var a;
+
+                                            // 값 할당
+                                            a = 10;
+                                            console.log(a);  // 10
+                                            a = 20
+                                            console.log(a);  // 20   // 재할당 가능
+                                        }
+                                        console.log(a);  // 20 (var는 전역 스코프 이므로 코드 블록 밖에서도 확인이 가능)
+
+                                        {
+                                            // 변수 x 선언
+                                            let x;
+                                            console.log(x); // undefined (let의 값을 할당하기 전에는 undefined)
+
+                                            let x;  // 재선언 불가능
+
+                                            x = 2;  // 값 할당
+                                            console.log(x)  // 2
+                                            x = 4;
+                                            console.log(x)  // 4 (재할당 가능)
+                                        }
+                                        console.log(x); // let은 블록 스코프 이므로 코드 블록 밖에서 확인이 불가능
+
+                                        {
+                                            // const 변수는 반드시 선언과 할당을 모두 해야 함 (초기값이 반드시 필요)
+                                            const y;    // 값이 할당되지 않았기 때문에 할당 필요
+                                            const y = "hello world";    // 값을 할당해야만 한다
+
+                                            y = "hello World";  // 재할당 불가능
+                                        }
+                                        console.log(y); // const는 블록 스코프 이므로 코드 블록 밖에서 확인이 불가능
+                                    </code>
+                                </pre>
+                                <script>
+                                    
+                                </script>
+                            </div>
+                        </div>
+                        <div class="cont_box">
+                            <h2>3. JavaScript 변수명(식별자) 규칙<span>코드보기</span></h2>
+                            <div class="des">
+                                <p>1) 문자, 숫자, 밑줄(_), 달러($) 기호 사뇽 가능</p>
+                                <p>2) 첫 글자는 숫자일 수 없다</p>
+                                <p>3) 대소문자를 구분한다</p>
+                                <p>4) Camel Case 방식의 이름 규칙을 사용</p>
+                            </div>
+                            <div class="code">
+                                <pre>
+                                    <code class="language-javascript">
+                                        let hello;          // 문자로 시작하는 변수명
+                                        let hello2;         // 문자 + 숫자
+                                        let _hello;         // 밑줄(_)fh tlwkr
+                                        let HELLO;        // 대문자 (대소문자 구분)
+                                        let helloWorld;     // camel case (첫 단어를 제외 두 번째 단어의 첫 글자는 대문자 사용)
+                                        let $hello;         // $기호로 시작
+                                        let 2hello;         // 숫자로 시작(불가능)
+
+                                        /*
+                                        이름 규칙의 종류
+                                        1) camelCase (카멜 케이스)
+                                            - firstName, totalCount, isLoggedIn
+                                            - 첫 단어는 소문자, 다음 단어는 첫 글자 대문자
+                                            
+                                        2) PascalCase (파스칼 케이스)
+                                            - FirstName, TotalCount, IsLoggedIn
+                                            - 모든 단어의 첫 글자를 대문자
+
+                                        3) snake_case (스네이크 케이스)
+                                            - first_name, total_count
+                                            - 소문자 + 밑줄(_) 로 구분
+
+                                        4) kebab-case (케밥 케이스)
+                                            - first-name, total-count
+                                            - 소문자 + 하이픈(-) 으로 구분
+                                            - 자바스크립트에서는 사용 불가 (하이픈이 연산자로 인식됨)
+                                        */
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                        <div class="cont_box">
+                            <h2>4. Template literals<span>코드보기</span></h2>
+                            <div class="des">
+                                <p>1) 백틱(``)으로 묶은 문자열을 의미</p>
+                                <p>2) 여러 줄로 이루어진 문자열을 처리할 수 있다</p>
+                                <p>3) 문자열 보간 기능을 사용할 수 있다</p>
+                            </div>
+                            <div class="code">
+                                <pre>
+                                    <code class="language-javascript">
+                                        // 다중 라인 처리
+                                        const iconArt = `^      ^
+                                                                                --              `
+
+                                        // 보간 기능 - 문자열 안에 변수나 표현식을 ${...} 형태로 삽입 가능
+                                        // 1 + 2 는 3 이다.
+                                        const a = 1;
+                                        const b = 2;
+                                        const c = 3;
+                                        console.log(a + " + " + b + " 는 " + c + " 이다.");     // 기존 문자열 연결법
+                                        console.log(`${a} + ${b} 는 ${c} 이다.`);               // 리터럴 방식
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                        <div class="cont_box">
+                            <h2>5. 호이스팅(hoisting) ★★★★★<span>코드보기</span></h2>
+                            <div class="des">
+                                <p>1) 끌어 올리다</p>
+                                <p>2) javascript 인터프리터가 코드를 실행하기 전에 var 변수 선언, 함수 선언 또는 import를 해당 범위의 맨 위로 끌어올리는 것처럼 보이는 현상</p>
+                                <p>3) var 키워드로 선언된 변수는 코드 어디에 존재하든 가장 먼저 처리되는 것으로 이해할 수 있다.</p>
+                                <p>4) 변수 선언과 초기화가 동시에 진행되는 경우 변수 선언만 분리해서 먼저 처리</p>
+                            </div>
+                            <div class="code">
+                                <pre>
+                                    <code class="language-javascript">
+                                        // 변수 선언을 하지 않고 바로 사용 가능(var 변수만)
+                                        money = 50000;
+                                        console.log(money); // 50000
+                                        var money;  // var 변수 선언은 호이스팅에 의해서 항상 먼저 처리
+
+                                        console.log(cat);   // undefined (변수 cat 은 호이스팅 되었지만 값은 해당되지 않음 - 선언만 호이스팅)
+                                        var cat = "고양이";
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                        <div class="cont_box">
+                            <h2>연습문제<span>코드보기</span></h2>
+                            <div class="des">
+                                <p>이름, 나이, 성별을 변수에 저장하고 아래와 같이 출력</p>
+                                <p>나는 홍길동 이라고해. 남자이고 18살이야.</p>
+                            </div>
+                            <div class="code">
+                                <pre>
+                                    <code class="language-javascript">
+                                        const name = "홍길동";
+                                        const age = "18";
+                                        const gender = "남자";
+                                        let sentence = `나는 ${name} 이라고해. ${gender}이고 ${age}살이야.`;
+                                        console.log(sentence);
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cont Operator" style="display:block;">
+                        <h1 class="main_title">Operator</h1>
+                        <div class="cont_box">
+                            <h2>1. 산술 연산자<span>코드보기</span></h2>
+                            <div class="des">
+
+                            </div>
+                            <div class="code">
+                                <pre>
+                                    <code class="language-javascript">
+                                        
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
