@@ -1,8 +1,8 @@
 // 하이라이트 라이브러리 실행
 hljs.highlightAll();
 
-// 들여쓰기 제거 스크립트
 window.onload = function(){
+    // 들여쓰기 제거 스크립트
     document.querySelectorAll('pre code').forEach((block) => {
         const lines = block.innerHTML.split('\n');
     
