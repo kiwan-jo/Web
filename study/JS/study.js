@@ -60,4 +60,17 @@ window.onload = function(){
             document.querySelector(`.cont.${title}`).style.display = "block";
         })
     })
+
+    // 모바일 메뉴 열기
+    document.querySelector(".gnb span").addEventListener("click",function(){
+        const lnb = document.querySelector(".lnb");
+        const bk = document.querySelector(".bk_panel");
+        if(getComputedStyle(lnb).left === "-200px"){
+            lnb.style.left = "0px";
+            bk.style.display = "block";
+        } else{
+            lnb.style.left = "-200px";
+            bk.style.display = "none";
+        }
+    })
 }

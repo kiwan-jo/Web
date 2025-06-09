@@ -49,11 +49,15 @@ table{width:100%; border:none; border-collapse:collapse;}
 input,select,textarea{outline:none;}
 
 /* 공용 */
+:root{
+	--gnb-height:48px;
+}
 html,body,.wrap{height:100%;}
 table{}
 th,td{border:1px solid #a9a9a9; font-weight:normal; text-align:left; padding:8px 12px; color:#333;}
 th{font-weight:500;}
 tr td:first-child{font-weight:500;}
+.bk_panel{position:fixed; top:var(--gnb-height); bottom:0; left:0; right:0; background:rgba(0,0,0,0.3); display:none; z-index:1;}
 
 ol.number{padding-left:25px;}
 ol.number li{list-style:decimal;}
@@ -66,11 +70,12 @@ ol.number li span{display:inline-block; width:85px; font-weight:500;}
 
 
 /* gnb */
-.gnb{height:48px; box-shadow:0 2px 6px rgba(0,0,0,0.16); background:#fff; border-bottom:1px solid #d1d1d1;}
+.gnb{height:var(--gnb-height); box-shadow:0 2px 6px rgba(0,0,0,0.16); background:#fff; border-bottom:1px solid #d1d1d1;}
 .gnb ul{overflow:hidden; display:flex; justify-content:center;}
-.gnb ul li{height:48px; line-height:48px; padding:0 20px; font-size:20px; cursor:pointer; font-weight:500; position:relative;}
+.gnb ul li{height:var(--gnb-height); line-height:var(--gnb-height); padding:0 20px; font-size:20px; cursor:pointer; font-weight:500; position:relative;}
 .gnb ul li:before{content:""; position:absolute; left:0; bottom:-3px; width:100%; height:3px; background:skyblue; transition:all 0.3s ease;}
 .gnb ul li:hover:before{bottom:2px;}
+.gnb span{float:left; width:var(--gnb-height); height:var(--gnb-height); text-align:center; line-height:var(--gnb-height); font-size:18px; font-weight:500;}
 
 
 /* main */
@@ -87,7 +92,7 @@ ol.number li span{display:inline-block; width:85px; font-weight:500;}
 /* main_cont */
 .main_cont{flex:1; overflow:auto; height:100%;}
 
-.cont_wrap{min-width:1080px;}
+/* .cont_wrap{min-width:1080px;} */
 .cont{padding:30px 50px; display:none;}
 .main_title{font-size:40px; font-weight:bold; text-align:center; margin-bottom:30px;}
 .cont_box{border:1px solid #a9a9a9; border-radius:15px; margin-top:20px; overflow:hidden;}
@@ -95,3 +100,16 @@ ol.number li span{display:inline-block; width:85px; font-weight:500;}
 .cont_box h2 span{font-weight:500; font-size:16px; cursor:pointer; border:1px solid #a9a9a9; border-radius:5px; padding:4px 8px; background:#f1f1f1;}
 .cont_box h2 span:hover{background:#dfdfdf;}
 .cont_box .des{padding:15px;}
+
+
+@media screen and (max-width:500px){
+	html, body, div, span, ul, li, ol, nav, h1, h2, h3, h4, h5, p, dl, dt, dd{font-size:14px;}
+	.gnb ul{justify-content:flex-start; max-width:calc(100% - 100px); float:right; flex-wrap:nowrap; overflow-x:auto;}
+	.gnb ul li{padding:0 10px; flex-shrink:0;}
+	.lnb{position:fixed; top:var(--gnb-height); left:-200px; transition:all 0.1s linear; z-index:10;}
+	.cont{padding:30px 20px;}
+	.cont_box h2{font-size:16px;}
+	.cont_box h2 span{font-size:14px; padding:4px 6px;}
+	code{font-size:12px !important;}
+	code *{font-size:12px !important;}
+}

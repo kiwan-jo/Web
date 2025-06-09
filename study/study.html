@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>공부용</title>
+    <title></title>
     <link rel="stylesheet" href="css/atom-one-dark.min.css">
     <link rel="stylesheet" href="css/study.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
@@ -11,8 +11,10 @@
 </head>
 <body>
     <div class="wrap">
+        <div class="bk_panel"></div>
         <!-- gnb -->
         <nav class="gnb">
+            <span>메뉴</span>
             <ul>
                 <li>HTML</li>
                 <li>CSS</li>
@@ -44,6 +46,9 @@
                     <li>Timer_Fuction</li>
                     <li>DOM</li>
                     <li>Event</li>
+                    <li>BOM</li>
+                    <li>RegExp</li>
+                    <li>XML</li>
                 </ul>
             </div>
 
@@ -55,7 +60,10 @@
                 <div class="cont_wrap css" style="display:none;">
                     
                 </div>
+
+                <!-- 자바스크립트 -->
                 <div class="cont_wrap js">
+                    <!-- js 1장 variable -->
                     <div class="cont Variable">
                         <h1 class="main_title">Variable</h1>
                         <div class="cont_box">
@@ -294,10 +302,101 @@
                             </div>
                         </div>
                     </div>
-                    <div class="cont Operator" style="display:block;">
+
+                    <!-- js 2장 operator -->
+                    <div class="cont Operator" style="display:none;">
                         <h1 class="main_title">Operator</h1>
                         <div class="cont_box">
                             <h2>1. 산술 연산자<span>코드보기</span></h2>
+                            <div class="des">
+                                <p><span>1) 더하기 : </span> + </p>
+                                <p><span>2) 빼기 &nbsp;&nbsp;&nbsp;&nbsp;: </span> - </p>
+                                <p><span>3) 곱하기 : </span> * </p>
+                                <p><span>4) 나누기 : </span> / </p>
+                                <p><span>5) 나머지 : </span> %</p>
+                            </div>
+                            <div class="code">
+                                <pre>
+                                    <code class="language-javascript">
+                                        const a = 5;
+                                        const b = 2;
+
+                                        console.log(a + b); // 5 + 2 = 7
+                                        console.log(a - b); // 5 - 2 = 3
+                                        console.log(a * b); // 5 * 2 = 10
+                                        console.log(a / b); // 5 / 2 = 2.5
+                                        console.log(a % b); // 5 % 2 = 1
+                                        console.log(parseInt(a / b));   // 2(나눗셈의 몫)
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- js 16장 BOM -->
+                    <div class="cont BOM" style="display:block;">
+                        <h1 class="main_title">BOM</h1>
+                        <div class="cont_box">
+                            <h2>1. window</h2>
+                            <div class="des">
+                                <p>1) 현재 스크립트가 작동 중인 창을 나타내는 전역 객체</p>
+                                <p>2) 모든 JavaScript 객체의 최상위 객체</p>
+                                <p>3) JavaScript 코드상에서 생략 가능 (window.alert() > alert())</p>
+                            </div>
+                        </div>
+
+                        <div class="cont_box">
+                            <h2>2. history<span>코드보기</span></h2>
+                            <div class="des">
+                                <p>1) 방문했던 경로를 기억하고 있는 객체</p>
+                                <p>2) 히스토리 객체를 이용해서 이전 화면으로 이동 가능</p>
+                                <p>3) 사용예시(코드확인)</p>
+                            </div>
+                            <div class="code">
+                                <pre>
+                                    <code class="language-javascript">
+                                        1) 뒤로 가기        : history.back() == history.go(-1)
+                                        2) 앞으로 가기      : history.forward() == history.go(1)
+                                        3) 특정 위치로 가기 : history.go(N) / N이 음수면 뒤로 N 만큼, N이 양수면 앞으로 N 만큼
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                        
+                        <div class="cont_box">
+                            <h2>3. location<span>코드보기</span></h2>
+                            <div class="des">
+                                <p>1) 문서의 현재 위치에 대한 정보가 담긴 location 객체를 반환</p>
+                                <p>2) 새로운 페이지 이동 / 새로고침</p>
+                            </div>
+                            <div class="code">
+                                <pre>
+                                    <code class="language-javascript">
+                                        location.href = "https://www.naver.com"     // 뒤로가기 가능
+                                        location = "https://www.naver.com"          // href 생략 가능
+                                        location.assign("https://www.naver.com")    // 뒤로가기 가능
+                                        location.replace("https://www.naver.com")   // 뒤로가기 불가능
+                                        location.reload()                           // 새로고침(캐시사용)
+                                        location.reload(true)                       // 새로고침(캐시사용안함)
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+
+                        <div class="cont_box">
+                            <h2>4. screen</h2>
+                            <div class="des">
+                                <p>1) 브라우저 화면 정보를 관리하는 객체</p>
+                                <p>2) 화면의 너비/높이 정보를 알아낼 수 있다.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- js 17장 RegExp -->
+                    <div class="cont RegExp">
+                        <h1 class="main_title">정규표현식</h1>
+                        <div class="cont_box">
+                            <h2></h2>
                             <div class="des">
 
                             </div>
@@ -309,6 +408,11 @@
                                 </pre>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- js 18장 XML -->
+                    <div class="cont XML">
+                        
                     </div>
                 </div>
             </div>

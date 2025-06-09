@@ -30,15 +30,15 @@
       1  | 요청 생성         | XMLHttpRequest.OPENED
       2  | 요청 전송         | XMLHttpRequest.HEADERS_RECEIVED
       3  | 응답 받는 중      | XMLHttpRequest.LOADING
-      4  | 완료              | XMLHttpRequest.DONE
+      4  | 완료              | XMLHttpRequest.DONE              // 중요 ★★★★★ (요청의 완료 여부확인이 중요 - readyState 값 4)
       --------------------------------------------------------
   2) response
     (1) 응답 개체 본문(response body)을 반환합니다.
-    (2) ArrayBuffer, Blob, Document, JavaScript Object, String 등과 같은 데이터를 포함합니다.
-  3) responseText
+    (2) ArrayBuffer, Blob, Document(XML 데이터 일 때), JavaScript Object, String(JSON 문자열) 등과 같은 데이터를 포함합니다.
+  3) responseText (string(JSON))
     (1) 요청에 대한 응답을 텍스트(string)로 반환합니다.
     (2) 요청이 실패하면 null을 반환합니다.
-  4) responseXML
+  4) responseXML  (XML)
     (1) 요청에 대한 응답을 포함한 XML Document를 반환합니다.
     (2) 요청이 실패하거나 XML/HTML로 파싱할 수 없는 경우 null을 반환합니다.
   5) status
@@ -47,7 +47,7 @@
       --------------------------┬-----------------------------------------------┬----------------------
       HTTP Status               | 의미                                          | Error 발생 장소
       --------------------------+-----------------------------------------------+----------------------
-      200 OK                    | 요청 성공                                     |
+      200 OK                    | 응답 성공                                     |
       --------------------------+-----------------------------------------------+----------------------
       400 Bad Request           | 잘못된 요청 (잘못된 문법으로 요청)            |
       401 Unauthorized          | 미승인 (클라이언트가 누구인지 모름)           | 

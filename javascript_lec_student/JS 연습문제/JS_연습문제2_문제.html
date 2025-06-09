@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS_연습문제2</title>
+</head>
+<body>
+  
+  <!--
+    문제1.
+    입력된 아이디나 비밀번호가 없으면 로그인을 막는 코드를 작성하세요.
+    어느 하나라도 입력되지 않았다면 "아이디와 비밀번호를 모두 입력하세요"라는 경고 메시지 창을 출력하고, 서브밋을 막아야 합니다.
+  -->
+  <div>
+    <form id="login-form" action="/user/login.do" method="post">
+      <div><input type="text" id="id" placeholder="Id"></div>
+      <div><input type="password" id="pw" placeholder="Password"></div>
+      <div><button type="submit">Log In</button></div>
+    </form>
+  </div>
+  <script>
+
+  </script>
+
+  <hr>
+
+  <!-- 
+    문제2.
+    검색 화면 구성하기
+    검색 카테고리에서 선택한 라디오 버튼에 해당하는 검색 화면만 표시하시고, 다른 화면은 안 보이게 숨겨두세요.
+    [Hint] 화면을 숨길 때는 CSS에서 배운 display: none;을 활용하고, 표시할 때는 display: block;을 활용합니다.
+  -->
+  <!-- 검색 카테고리 선택 -->
+  <div style="margin-bottom: 20px;">
+    <input type="radio" name="category" id="title" checked><label for="title">제목</label>
+    <input type="radio" name="category" id="date"><label for="date">날짜</label> 
+    <input type="radio" name="category" id="price"><label for="price">가격</label>
+  </div>
+  <!-- 제목 검색 화면 -->
+  <div id="title-search" class="search-boxes init-show">
+    <form method="get" action="/search.do">
+      <div>제목 검색</div>
+      <input type="text" name="title" placeholder="검색할 제목을 입력하세요"> 
+      <button type="submit">검색</button>
+    </form>
+  </div>
+  <!-- 날짜 검색 화면 -->
+  <div id="date-search" class="search-boxes">
+    <form method="get" action="/search.do">
+      <div>날짜 검색</div>
+      <input type="date" name="start"> - <input type="date" name="end"> 
+      <button type="submit">검색</button>
+    </form>
+  </div>
+  <!-- 가격 검색 화면 -->
+  <div id="price-search" class="search-boxes">
+    <form method="get" action="/search.do">
+      <div>가격 검색</div>
+      <input type="number" name="min-price" placeholder="최소 가격"> - <input type="number" name="max-price" placeholder="최대 가격">
+      <button type="submit">검색</button>
+    </form>
+  </div>
+  <style>
+    .search-boxes {
+      display: none;
+    }
+    .init-show {
+      display: block;
+    }
+  </style>
+  <script>
+
+  </script>
+
+  <hr>
+
+  <!-- 
+    문제3.
+    계산기가 동작하도록 구현하세요.
+    정상적으로 수식을 입력한 경우에만 처리할 수 있으면 됩니다. 생각보다 어렵지는 않아요.
+    [Hint] 어떤 표현식을 문자열로 전달하면 알아서 계산하는 eval이라는 함수가 있습니다.
+    eval("1+2+3") === 6입니다. 등호(=) 클릭 시 활용하세요.
+  -->
+  <style>
+    #calculator{
+      border: 2px solid black;
+    }
+    #result{
+      width: 210px;
+      height: 50px;
+      font-size: 2em;
+      font-weight: bold;
+      text-align: right;
+      border: 1px solid black;
+      overflow: hidden;
+    }
+    .calc-btn {
+      font-size: 1.5em;
+      font-weight: bold;
+      width: 50px;
+      height: 50px;
+    }
+  </style>
+  <table id="calculator">
+    <thead>
+      <tr>
+        <th colspan="4">
+          <input type="text" value="0" id="result">
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th><button type="button" class="calc-btn">(</button></th>
+        <th><button type="button" class="calc-btn">)</button></th>
+        <th><button type="button" class="calc-btn">←</button></th>
+        <th><button type="button" class="calc-btn">AC</button></th>
+      </tr>
+      <tr>
+        <th><button type="button" class="calc-btn">7</button></th>
+        <th><button type="button" class="calc-btn">8</button></th>
+        <th><button type="button" class="calc-btn">9</button></th>
+        <th><button type="button" class="calc-btn">/</button></th>
+      </tr>
+      <tr>
+        <th><button type="button" class="calc-btn">4</button></th>
+        <th><button type="button" class="calc-btn">5</button></th>
+        <th><button type="button" class="calc-btn">6</button></th>
+        <th><button type="button" class="calc-btn">*</button></th>
+      </tr>
+      <tr>
+        <th><button type="button" class="calc-btn">1</button></th>
+        <th><button type="button" class="calc-btn">2</button></th>
+        <th><button type="button" class="calc-btn">3</button></th>
+        <th><button type="button" class="calc-btn">-</button></th>
+      </tr>
+      <tr>
+        <th><button type="button" class="calc-btn">0</button></th>
+        <th><button type="button" class="calc-btn">.</button></th>
+        <th><button type="button" class="calc-btn">=</button></th>
+        <th><button type="button" class="calc-btn">+</button></th>
+      </tr>
+    </tbody>
+  </table>
+  <script>
+    
+  </script>
+
+  <hr>
+
+  <!--
+    문제4.
+    5개의 각 썸네일 이미지에 마우스를 가져다대면 해당 이미지를 original-image에 표시하세요.
+    마우스를 썸네일 위로 올리면 mouseover 이벤트가 발생합니다.
+    마우스를 썸네일 밖으로 빼면 mouseout 이벤트가 발생합니다.
+    [Hint] 어떤 썸네일을 선택했는지 여부를 data- 속성에 작성해 두었습니다. 이 값을 꺼내서 사용하세요.
+    data-file-name 속성의 값은 dataset.fileName 방식으로 꺼내서 사용해야 합니다.
+    (data- 속성을 작성할 땐 dash-case로 하지만, DOM 객체로 저장될 땐 camelCase로 저장되기 때문입니다.)
+  -->
+  <style>
+    .wrap {
+      width: 384px;
+      height: 314px;
+    }
+    .wrap div {
+      box-sizing: border-box;
+    }
+    #original-image {
+      width: 100%;
+      height: 256px;
+      margin: 10px auto;
+      background-image: url('../assets/images/flower1.jpg');
+      background-size: 100%;
+    }
+    #thumbnail-images {
+      width: 100%;
+      height: 60px;
+      margin: 10px auto;
+      display: flex;
+      justify-content: space-between;
+    }
+    #thumbnail-images > div {
+      width: 70px;
+      height: 50px;
+      border: 5px solid rgba(0, 0, 0, 0.1);
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+  </style>
+  <div class="wrap">
+    <div id="original-image"></div>
+    <div id="thumbnail-images">
+      <div data-file-name="flower1.jpg" style="background-image: url('../assets/images/flower1.jpg')"></div>
+      <div data-file-name="flower2.jpg" style="background-image: url('../assets/images/flower2.jpg')"></div>
+      <div data-file-name="flower3.jpg" style="background-image: url('../assets/images/flower3.jpg')"></div>
+      <div data-file-name="flower4.jpg" style="background-image: url('../assets/images/flower4.jpg')"></div>
+      <div data-file-name="flower5.jpg" style="background-image: url('../assets/images/flower5.jpg')"></div>
+    </div>
+  </div>
+  <script>
+
+  </script>
+
+  <hr>
+
+  <!-- 
+    문제5.
+    architecture1.jpg ~ architecture5.jpg를 이용하여 이미지 슬라이드를 만드세요.
+    첫 이미지에서 이전 버튼을 클릭하면 마지막 이미지로 이동하고,
+    마지막 이미지에서 다음 버튼을 클릭하면 첫 이미지로 이동해야 합니다.
+  -->
+  <style>
+    .image-slide-wrap div {
+      box-sizing: border-box;
+    }
+    .image-slide-wrap {
+      width: 384px;
+      height: 286px;
+    }
+    .image-slide-info {
+      width: 100%;
+      height: 30px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    #image-no {
+      margin: 0 10px;
+    }
+    #image-container {
+      width: 100%;
+      height: 256px;
+      background-image: url('../assets/images/architecture1.jpg');
+      background-size: cover;
+    }
+  </style>
+  <div class="image-slide-wrap">
+    <div class="image-slide-info">
+      <button type="button" id="prev-btn">이전</button>
+      <span id="image-no">1 / 5</span>
+      <button type="button" id="next-btn">다음</button>
+    </div>
+    <div id="image-container"></div>
+  </div>
+  <script>
+    
+  </script>
+
+</body>
+</html>
