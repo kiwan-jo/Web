@@ -117,5 +117,144 @@
     })
 -->
 
+  <button type="button" id="btn-not-work">DoNotWork</button>
+  <script>
+    document.getElementById("btn-not-work").addEventListener("click",function(){
+      let result;
+
+      const xhr = new XMLHttpRequest();
+      xhr.open("get","https://jsonplaceholder.typicode.com/users/1");
+      xhr.addEventListener("readystatechange",function(){
+        if(xhr.readyState === 4){
+          if(xhr.status === 200){
+            const {name} = JSON.parse(xhr.responseText);
+            result = name;
+          }
+        }
+      })
+      xhr.send();
+
+      console.log("응답 결과:", result)   // undefined - 비동기 작업 결과를 기다리지 않기 때문에
+    })
+  </script>
+
+  <hr>
+
+  <button type="button" id="btn-promise">프로미스확인</button>
+  <script>
+    document.getElementById("btn-promise").addEventListener("click",function(){
+      const promise = new Promise((resolve, reject) => {    // resolve, reject 둘 다 함수
+        let num = Math.random();
+        if(num < 0.5)
+        resolve("성공");  // 성공 시 호출하도록 코드를 구성
+        else
+        reject("실패");   // 실패 시 호출하도록 코드를 구성
+        console.log(num);
+      });
+
+      promise.then((data) => {    // resolve() 호출은 then 메소드의 콜백함수와 연결
+        console.log("작업" + data);
+      })
+      promise.catch((data) => {
+        console.log("작업" + data); // reject() 호출은 catch 메소드의 콜백함수와 연결
+      })
+      // new Promise.then() 은 Promise를 반환함으로 new Promise == Promise.then();
+      // Promise.catch() == Promise.then().catch();
+    })
+  </script>
+
+  <hr>
+
+  <button type="button" id="btn-work">DoWork</button>
+  <script>
+    document.getElementById("btn-work").addEventListener("click",function(){
+      let result;
+
+      /*
+      const xhr = new XMLHttpRequest();
+      xhr.open("get","https://jsonplaceholder.typicode.com/users/1");
+      xhr.addEventListener("load",function(){   // load 이벤트 - 요청과 응답이 성공했음을 의미
+        const {name} = JSON.parse(xhr.responseText);
+        reslt = name;
+      })
+      xhr.addEventListener("error",function(){  // error 이벤트 - 요청이나 응답이 실패했음을 의미 
+        console.log(xhr);
+      })
+      xhr.send();
+      */
+
+      // 비동기 작업이 끝나고 해야할 일이 있을 때 promise 사용
+
+      new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open("get","https://jsonplaceholder.typicode.com/users/1");
+        xhr.addEventListener("load",function(){   // load 이벤트 - 요청과 응답이 성공했음을 의미
+          resolve(JSON.parse(xhr.responseText));    // 비동기 작업 성공 시 resolve() 메소드 호출
+        })
+        xhr.addEventListener("error",function(){  // error 이벤트 - 요청이나 응답이 실패했음을 의미 
+          reject(xhr);     // 비동기 작업 실패 시 reject() 메소드 호출
+        })
+        xhr.send();
+      })
+      .then(({name}) => {
+        result = name;
+        console.log("응답 결과:", result)
+      })
+      .catch(({status, statusText}) => {
+        console.log("status:", status);
+        console.log("statusText:", statusText);
+      });
+    })
+  </script>
+
+  <hr>
+
+  <!-- 프로미스를 이용해서 두 번의 비동기 요청 -->
+  <button id="btn-posts">요청하기</button>
+  <script>
+    document.getElementById("btn-posts").addEventListener("click",function(){
+      new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open("get","https://jsonplaceholder.typicode.com/posts/100");
+        xhr.addEventListener("load",function(){
+          resolve(JSON.parse(xhr.responseText));
+        })
+        xhr.send();
+      })
+      .then((jsonData) => {   // jsonData = {userId:"", id:"", title:"", body:""}
+        // 첫 번째 요청의 결과를 이용해서 두 번째 요청을 진행
+        const xhr = new XMLHttpRequest();
+        xhr.open("get",`https://jsonplaceholder.typicode.com/users/${jsonData.userId}`)
+        xhr.addEventListener("load",function(){
+          const result = JSON.parse(xhr.responseText);
+          console.log("name : ", result.name);
+        })
+        xhr.send();
+      })
+      .catch(() => {
+
+      })
+    })
+  </script>
+
+  <hr>
+
+  <button id="btn-then">요청하기(then)</button>
+  <script>
+    // then 메소드의 체이닝(연속해서 호출하기)
+    document.getElementById("btn-then").addEventListener("click",function(){
+      new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open("get","https://jsonplaceholder.typicode.com/users/1");
+        xhr.addEventListener("load",function(){
+          resolve(JSON.parse(xhr.responseText));
+        })
+        xhr.send()
+      })
+      .then(user => user.address)     // then() 메소드의 콜백 함수가 반환한 값은 프로미스 (user.address가 저장된 프로미스)
+      .then(address => address.geo)   // then() 메소드의 콜백 함수가 반환한 값은 프로미스 (address.geo가 저장된 프로미스)
+      .then(geo => console.log("geo : ", geo))  // 데이터 정제 느낌 *(*(*)*)*
+    })
+  </script>
 </body>
 </html>

@@ -9,7 +9,7 @@
 
 <!--
 1. XMLHttpRequest 객체
-  1) 자바스크립트에서 웹 브라우저와 서버 간에 데이터를 비동기적으로 주고받을 수 있게 해주는 핵심 Web API입니다. 
+  1) 자바스크립트에서 웹 브라우저와 서버 간에 데이터를 비동기적으로 주고받을 수 있게 해주는 핵심 Web API입니다.  // (비동기 - a태그 또는 location 기능 사용 X)
   2) 전체 페이지를 새로 고침하지 않고도, 웹 서버에 HTTP 요청을 보내고, 응답 데이터를 받아와 웹페이지의 일부를 동적으로 갱신할 수 있습니다.
     (이러한 방식은 AJAX(Asynchronous JavaScript and XML) 프로그래밍의 기반이 됩니다.)
   3) 주요 특징
@@ -148,6 +148,126 @@
   5) 요청 전송
     xhr.send();
 -->
+  <div>
+    <input type="text" id="name" placeholder="이름 입력">
+    <button type="button" id="btn-agify">요청하기</button>
+  </div>
+  <script>
+    document.getElementById('btn-agify').addEventListener('click', function() {
+      const xhr = new XMLHttpRequest();  //-------------------------------------------------------- 1. XMLHttpRequest 객체 생성하기
+      xhr.open('get', `https://api.agify.io/?name=${document.getElementById('name').value}`);  //-- 2. 요청 초기화하기
+      xhr.addEventListener('readystatechange', function() {  //------------------------------------ 3. 요청 상태(readyState)의 변화를 감지하는 이벤트
+        if(xhr.readyState === 4) {  //------------------------------------------------------------- 5. 요청 성공 시
+          if(xhr.status === 200) {  //------------------------------------------------------------- 6. 응답 성공 시
+            console.log(xhr.responseText);  //----------------------------------------------------- 7. 응답 데이터가 JSON인 경우 responseText를 이용해서 결과를 확인
+            console.log(JSON.parse(xhr.responseText));  //-----------------------------------------    JSON 문자열을 JavaScript 객체로 변환해서 사용
+          }
+        }
+      })
+      xhr.send();  //------------------------------------------------------------------------------ 4. 요청 전송하기
+    })
+  </script>
 
+  <hr>
+
+  <select id="kind">
+    <option value="cat">고양이</option>
+    <option value="dog">강아지</option>
+  </select>
+  <button type="button" id="btn-random">요청하기</button>
+  <div id="random-image"></div>
+  <script>
+
+    // 연습) 임의의 이미지를 요청하여 화면에 표시하세요.
+    //   - 고양이: https://api.thecatapi.com/v1/images/search
+    //   - 강아지: https://api.thedogapi.com/v1/images/search
+
+    document.getElementById('btn-random').addEventListener('click', function() {
+      const xhr = new XMLHttpRequest();
+      xhr.open('get', `https://api.the${document.getElementById('kind').value}api.com/v1/images/search`);
+      xhr.addEventListener('readystatechange', function() {
+        if(xhr.readyState === 4) {
+          if(xhr.status === 200) {
+            // console.log(JSON.parse(xhr.responseText));       [ { id:'asd...', url:'http...', width: 500, height: 500} ]
+            
+            /*
+            const jsonData = JSON.parse(xhr.responseText)[0];
+            let str = `<img alt="강아지" src="${jsonData.url}" width="${jsonData.width}">`;
+            */
+
+            const {url,width} = JSON.parse(xhr.responseText)[0];
+            const str = `<img alt="반려동물" src="${url}" width="${width}">`
+            document.getElementById('random-image').innerHTML = str;
+          }
+        }
+      })
+      xhr.send();
+    })
+
+  </script>
+
+  <hr>
+
+  <button type="button" id="btn-todos">Todos 요청하기</button>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>userId</th>
+        <th>id</th>
+        <th>title</th>
+        <th>completed</th>
+      </tr>
+    </thead>
+    <tbody id="todos"></tbody>
+  </table>
+  <script>
+
+    // 연습) todos 요청하여 해당 정보를 테이블에 표시하세요.
+    // 요청 주소는 https://jsonplaceholder.typicode.com/todos 입니다.
+    // completed 정보는 체크박스로 표시하세요. (true이면 체크상태로 하세요.)
+
+    document.getElementById('btn-todos').addEventListener('click', function() {
+      const xhr = new XMLHttpRequest();
+      xhr.open('get', 'https://jsonplaceholder.typicode.com/todos');
+      xhr.addEventListener('readystatechange', function() {
+        if(xhr.readyState === 4) {
+          if(xhr.status === 200) {
+            const todos = JSON.parse(xhr.responseText);
+
+            // 내가 짠 함수
+            /*
+            console.log(todos);
+            let str = "";
+            for(let i = 0; i < todos.length; i++){
+              let checkbox = todos[i].completed ? "<input type='checkbox' checked>" : "<input type='checkbox'>";
+
+              str += "<tr>";
+              str += "<td>" + todos[i].userId + "</td>";
+              str += "<td>" + todos[i].id + "</td>";
+              str += "<td>" + todos[i].title + "</td>";
+              str += "<td>" + checkbox + "</td>";
+              str += "</tr>";
+            }
+            document.getElementById("todos").innerHTML = str;
+            */
+
+            // 해설
+            todos.map((todo) => {   // todo : {userId:"", id:"", title:"", completed:true}
+              let str = ` <tr>
+                            <td>${todo.userId}</td>
+                            <td>${todo.id}</td>
+                            <td>${todo.title}</td>
+                            <td><input type="checkbox"${todo.completed ? " checked" : ""}></td>
+                            </tr>`;
+              return str;
+            }).forEach(tr => document.getElementById("todos").innerHTML += tr);
+          }
+        }
+      })
+      xhr.send();
+    })
+
+
+  </script>
 </body>
 </html>

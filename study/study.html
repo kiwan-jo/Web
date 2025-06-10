@@ -10,6 +10,7 @@
     <script src="JS/study.js"></script>
 </head>
 <body>
+    <!-- data.go.kr -->
     <div class="wrap">
         <div class="bk_panel"></div>
         <!-- gnb -->
@@ -49,6 +50,7 @@
                     <li>BOM</li>
                     <li>RegExp</li>
                     <li>XML</li>
+                    <li>Promise</li>
                 </ul>
             </div>
 
@@ -331,10 +333,23 @@
                                 </pre>
                             </div>
                         </div>
+
+                        <div class="cont_box">
+                            <h2>2. 증감 연산자<span>코드보기</span></h2>
+                            <div class="des">
+                                <p>1. ++a : 전위 증가 (증가 후에 사용)</p>
+                                <p>2. a++ : 후위 증가 (사용 후에 증가)</p>
+                                <p>3. --a : 전위 감소</p>
+                                <p>4. a-- : 후위 감소</p>
+                            </div>
+                            <div class="code">
+
+                            </div>
+                        </div>
                     </div>
 
                     <!-- js 16장 BOM -->
-                    <div class="cont BOM" style="display:block;">
+                    <div class="cont BOM" style="display:none;">
                         <h1 class="main_title">BOM</h1>
                         <div class="cont_box">
                             <h2>1. window</h2>
@@ -393,7 +408,7 @@
                     </div>
 
                     <!-- js 17장 RegExp -->
-                    <div class="cont RegExp">
+                    <div class="cont RegExp" style="display:none;">
                         <h1 class="main_title">정규표현식</h1>
                         <div class="cont_box">
                             <h2></h2>
@@ -411,8 +426,77 @@
                     </div>
 
                     <!-- js 18장 XML -->
-                    <div class="cont XML">
+                    <div class="cont XML" style="display:none">
                         
+                    </div>
+
+                    <!-- js 19장 Promise -->
+                    <div class="cont Promise" style="display:block;">
+                        <h1 class="main_title">Promise</h1>
+                        <div class="cont_box">
+                            <h2>1. Promise 기본 개요<span>코드보기</span></h2>
+                            <div class="des">
+                                <p>1. 자바스크립트에서 비동기 작업의 성공 또는 실패를 처리하기 위해 사용하는 내장 객체</p>
+                                <p>2. 비동기 작업은 코드 순서에 따른 작업 결과를 기다리지 않는다.</p>
+                            </div>
+                            <div class="code">
+                                <pre>
+                                    <code class="language-javascript">
+                                        
+                                        <script>
+                                            let result;
+
+                                            const xhr = new XMLHttpRequest();
+                                            xhr.open("get","https://jsonplaceholder.typicode.com/users/1");
+                                            xhr.addEventListener("readystatechange",function(){
+                                                if(xhr.readyState === 4){
+                                                    if(xhr.status === 200){
+                                                        const {name} = JSON.parse(xhr.responseText);
+                                                        result = name;
+                                                        console.log("응답 완료 결과 : ", result);   // "name" 값 나옴
+                                                    }
+                                                }
+                                            })
+                                            xhr.send();
+
+                                            console.log("응답 결과 : ", result);    // undefined - 비동기 작업 결과를 기다리지 않기 때문(아직 응답 데이터를 받기전에 console이 먼저 동작, 따라서 값이 없음)
+                                        </script>
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                        
+                        <div class="cont_box">
+                            <h2>2. Promise의 성공/실패 처리<span>코드보기</span></h2>
+                            <div class="des">
+                                <p>1. Promise 선언의 매개변수는 resolve, reject를 사용(보편적인 약속)</p>
+                                <p>2. resolve, reject에 콜백함수</p>
+                                <p>3. 성공시 then / 실패시 catch 의 Promise의 내장 메소드 사용</p>
+                            </div>
+                            <div class="code">
+                                <pre>
+                                    <code class="language-javascript">
+                                        <script>
+                                            const promise = new Promise((resolve, reject) => {      // Promise 생성 / resolve,reject 둘 다 함수
+                                                let num = Math.random();    // 0.0 <= Math < 1.0
+                                                if(num < 0.5)
+                                                resolve("성공");    // 성공 시 호출
+                                                else
+                                                reject("실패");     // 실패 시 호출
+                                            })
+
+                                            promise.then(data => {      // resolve() 호출은 then 메소드의 콜백 함수와 연결
+                                                console.log("작업" + data); // 작업성공
+                                            })
+
+                                            promise.catch(data => {     // reject() 호출은 catch 메소드의 콜백 함수와 연결
+                                                console.log("작업" + data); // 작업실패
+                                            })
+                                        </script>
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
