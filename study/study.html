@@ -6,6 +6,9 @@
     <title></title>
     <link rel="stylesheet" href="css/atom-one-dark.min.css">
     <link rel="stylesheet" href="css/study.css">
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="JS/study.js"></script>
 </head>
@@ -435,25 +438,22 @@
                             <div class="code">
                                 <pre>
                                     <code class="language-javascript">
-                                        
-                                        <script>
-                                            let result;
+                                        let result;
 
-                                            const xhr = new XMLHttpRequest();
-                                            xhr.open("get","https://jsonplaceholder.typicode.com/users/1");
-                                            xhr.addEventListener("readystatechange",function(){
-                                                if(xhr.readyState === 4){
-                                                    if(xhr.status === 200){
-                                                        const {name} = JSON.parse(xhr.responseText);
-                                                        result = name;
-                                                        console.log("응답 완료 결과 : ", result);   // "name" 값 나옴
-                                                    }
+                                        const xhr = new XMLHttpRequest();
+                                        xhr.open("get","https://jsonplaceholder.typicode.com/users/1");
+                                        xhr.addEventListener("readystatechange",function(){
+                                            if(xhr.readyState === 4){
+                                                if(xhr.status === 200){
+                                                    const {name} = JSON.parse(xhr.responseText);
+                                                    result = name;
+                                                    console.log("응답 완료 결과 : ", result);   // "name" 값 나옴
                                                 }
-                                            })
-                                            xhr.send();
+                                            }
+                                        })
+                                        xhr.send();
 
-                                            console.log("응답 결과 : ", result);    // undefined - 비동기 작업 결과를 기다리지 않기 때문(아직 응답 데이터를 받기전에 console이 먼저 동작, 따라서 값이 없음)
-                                        </script>
+                                        console.log("응답 결과 : ", result);    // undefined - 비동기 작업 결과를 기다리지 않기 때문(아직 응답 데이터를 받기전에 console이 먼저 동작, 따라서 값이 없음)
                                     </code>
                                 </pre>
                             </div>
@@ -469,23 +469,21 @@
                             <div class="code">
                                 <pre>
                                     <code class="language-javascript">
-                                        <script>
-                                            const promise = new Promise((resolve, reject) => {      // Promise 생성 / resolve,reject 둘 다 함수
-                                                let num = Math.random();    // 0.0 <= Math < 1.0
-                                                if(num < 0.5)
-                                                resolve("성공");    // 성공 시 호출
-                                                else
-                                                reject("실패");     // 실패 시 호출
-                                            })
+                                        const promise = new Promise((resolve, reject) => {      // Promise 생성 / resolve,reject 둘 다 함수
+                                            let num = Math.random();    // 0.0 <= Math < 1.0
+                                            if(num < 0.5)
+                                            resolve("성공");    // 성공 시 호출
+                                            else
+                                            reject("실패");     // 실패 시 호출
+                                        })
 
-                                            promise.then(data => {      // resolve() 호출은 then 메소드의 콜백 함수와 연결
-                                                console.log("작업" + data); // 작업성공
-                                            })
+                                        promise.then(data => {      // resolve() 호출은 then 메소드의 콜백 함수와 연결
+                                            console.log("작업" + data); // 작업성공
+                                        })
 
-                                            promise.catch(data => {     // reject() 호출은 catch 메소드의 콜백 함수와 연결
-                                                console.log("작업" + data); // 작업실패
-                                            })
-                                        </script>
+                                        promise.catch(data => {     // reject() 호출은 catch 메소드의 콜백 함수와 연결
+                                            console.log("작업" + data); // 작업실패
+                                        })
                                     </code>
                                 </pre>
                             </div>
@@ -516,22 +514,126 @@
                     <div class="cont element_render">
                         <h1 class="main_title">element_render</h1>
                         <div class="cont_box">
-                            <h2>1. <span>코드보기</span></h2>
+                            <h2>1. Element 와 Rendering<span class="popup" data-num="211">팝업</span><span>코드보기</span></h2>
                             <div class="des">
-                                
+                                <p>1) Element : 리액트 애플리케이션을 구성하는 가장 작은 단위</p>
+                                <p>2) React Element는 불변하며, 한 번 생성되면 변경되지 않는다. 화면을 업데이트할 때는 새로운 Element를 생성해 교체</p>
+                                <p>3) Rendering : React Element 같은 구성 요소들을 화면에 그리는 작업</p>
+                                <p>4) ReactDOM은 Element 와 그 자식 Element 를 이전의 Element 와 비교하고 변경된 부분만 업데이트</p>
                             </div>
                             <div class="code">
                                 <pre>
                                     <code class="language-javascript">
-                                     
+                                        // Element 만들기 (React.createElement() 메소드 이용)
+                                        const h1Element = React.createElement(      // JSX를 선호
+                                            "h1",                   // 태그이름
+                                            {                       // 태그 속성(객체)
+                                                id:"title",         
+                                                className:"title"
+                                            },
+                                            "Hello World"           // h1 태그안 텍스트
+                                        );                          // 랜더링 화면 : &lt;h1 id="title" class="title">Hello World&lt;/h1>
+                                        
+                                        // rendering (랜더링 : Element를 화면에 표시)
+                                        const divBox = document.getElementById("box");
+                                        ReactDOM.createRoot(divBox).render(h1Element);  // divBox(div 태그) 에 h1Element(h1태그 element)를 뿌린다.
                                     </code>
                                 </pre>
                             </div>
+                        </div>
+
+                        <div class="cont_box">
+                            <h2>2. 예제<span class="popup" data-num="212">팝업</span><span>코드보기</span></h2>
+                            <div class="des">
+                                <p>div 2개를 생성해서 간단한 시계 만들기</p>
+                            </div>
+                            <div class="code">
+                                <pre>
+                                    <code class="language-javascript">
+                                        // createRoot 설정을 setInterval 안에 넣으면 매 순간마다 랜더링을 하고자 하는 객체가 새로고침 되면서 깜빡임 현상이 발생함
+                                        const divBox = ReactDOM.createRoot(document.getElementById("box"));
+                                        setInterval = (() => {
+                                            const textElement = React.createElement(
+                                                "div",
+                                                {
+                                                    className:"text"
+                                                },
+                                                "간단한 시계"
+                                            )
+
+                                            const timeElement = React.createElement(
+                                                "div",
+                                                {
+                                                    className:"time"
+                                                },
+                                                new Date().toLocaleTimeString()
+                                            )
+                                            divBox.render([     // 여러 개의 Element는 배열로 전달
+                                                textElement,
+                                                timeElement
+                                            ]);
+                                        },1000);
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- react 2장 jsx -->
+                    <div class="cont jsx">
+                        <h1 class="main_title">JSX</h1>
+                        <div class="cont_box">
+                            <h2>JSX 와 Element 만들기</h2>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="layerpopup">
+        <div class="l_bk"></div>
+        <div id="p_211"></div>
+        <div id="p_212"></div>
+    </div>
+
+    <script type="text/babel">
+        // 211 팝업
+        const h1Element211 = React.createElement(
+            "h1",
+            {
+                id:"title",
+                className:"title"
+            },
+            "Hello World"
+        );
+        ReactDOM.createRoot(document.getElementById("p_211")).render(h1Element211);
+
+        // 212 팝업
+        const div211 = ReactDOM.createRoot(document.getElementById("p_212"));
+        // setInterval(() => {
+            const textElement212 = React.createElement(
+                "div",
+                {
+                    className:"text"
+                },
+                "간단한 시계"
+            )
+
+            const timeElement212 = React.createElement(
+                "div",
+                {
+                    className:"time"
+                },
+                new Date().toLocaleTimeString(), // 실시간 시계
+                " 실시간은 막아둠"
+            )
+
+            div211.render([
+                textElement212,
+                timeElement212
+            ],1000)
+        // })
+    </script>
 </body>
 </html>

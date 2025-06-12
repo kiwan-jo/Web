@@ -39,7 +39,7 @@
 -->
 
   <div id="root1"></div>
-  <script>
+  <script type="text/babel">
     // react 시작
     // Element 만들기 (React.createElement() 메소드 이용)
     const h1Element = React.createElement(
@@ -59,7 +59,7 @@
   <hr>
 
   <div id="root2"></div>
-  <script>
+  <script type="text/babel">
     const root2 = ReactDOM.createRoot(document.getElementById("root2"));
     setInterval(() => {
       const textElement = React.createElement(
@@ -75,7 +75,6 @@
       )
       root2.render([textElement, timeElement]);    // 여러 개의 Element는 배열로 전달
     },1000)
-
   </script>
 
 </body>

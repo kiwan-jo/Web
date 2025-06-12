@@ -23,7 +23,7 @@ window.onload = function(){
     });
 
     // 코드보기 버튼
-    let codeBtn = document.querySelectorAll(".cont_box h2 span");
+    let codeBtn = document.querySelectorAll(".cont_box h2 span:not(.popup)");
     codeBtn.forEach(function(code){
         code.addEventListener("click",function(){
             let codeBox = this.parentElement.nextElementSibling.nextElementSibling;
@@ -81,6 +81,7 @@ window.onload = function(){
         })
 
         // lnb 클릭시 해당 content 보여주기
+        // 코드 수정 필요
         lnbListAll.forEach(function(li,index){
             li.addEventListener("click",function(){
                 let listType = this.parentElement.dataset.type;
@@ -108,4 +109,30 @@ window.onload = function(){
             bk.style.display = "none";
         }
     })
+
+
+    // react 랜더링 팝업
+    {
+        // 팝업 버튼
+        const popup = document.querySelector(".layerpopup");
+        const popupBox = document.querySelectorAll(".layerpopup > div:not(l_bk)");
+        const popupBtn = document.querySelectorAll(".popup");
+        popupBtn.forEach(function(btn){
+            btn.addEventListener("click",function(){
+                const popupNum = btn.dataset.num;
+                console.log(popupNum)
+                document.getElementById(`p_${popupNum}`).style.display = "flex";
+                popup.style.display = "flex";
+            })
+        })
+
+        // 팝업 닫기 (여백 클릭시)
+        const l_bk = document.querySelector(".l_bk");
+        l_bk.addEventListener("click",function(){
+            popupBox.forEach(function(el){
+                el.style.display = "none";
+            })
+            popup.style.display = "none";
+        })
+    }
 }
