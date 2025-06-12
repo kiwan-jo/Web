@@ -84,15 +84,15 @@ ol.number li span{display:inline-block; width:85px; font-weight:500;}
 
 /* lnb */
 .lnb{width:200px; height:100%; border-right:1px solid #b1b1b1; background:#fff; overflow:auto;}
-.lnb ul{}
+.lnb ul{display:none;}
 .lnb ul li{height:40px; line-height:40px; border-bottom:1px solid #b1b1b1; padding:0 15px; cursor:pointer;}
-.lnb ul li:hover{background:skyblue; color:#000; font-weight:500;}
+.lnb ul li.on, .lnb ul li:hover{background:skyblue; color:#000; font-weight:500;}
 
 
 /* main_cont */
 .main_cont{flex:1; overflow:auto; height:100%;}
 
-/* .cont_wrap{min-width:1080px;} */
+.cont_wrap{display:none;}
 .cont{padding:30px 50px; display:none;}
 .main_title{font-size:40px; font-weight:bold; text-align:center; margin-bottom:30px;}
 .cont_box{border:1px solid #a9a9a9; border-radius:15px; margin-top:20px; overflow:hidden;}

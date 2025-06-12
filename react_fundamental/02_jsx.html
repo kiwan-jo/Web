@@ -41,6 +41,7 @@
     (3) 자바스크립트 표현식 삽입
       ① JSX 내부에서 중괄호 {}를 사용해 자바스크립트 변수, 연산, 함수 호출, 주석 등을 삽입할 수 있습니다.
       ② 예시
+        const numA = 1, numB = 2
         <h1>{numA} + {numB} = {numA + numB}</h1>    
     (4) 속성 작성
       ① JSX의 속성은 HTML과 비슷하지만, 자바스크립트 예약어와 충돌하지 않도록 일부 속성은 변경된 이름을 사용합니다.
@@ -71,5 +72,162 @@
           { obj.a }
   -->
 
+  <div id="root1"></div>
+  <script type="text/babel">
+    // JSX를 이용한 Element 만들기
+    const h1Element = <h1>Hello World</h1>;
+    
+    // rendering
+    ReactDOM.createRoot(document.getElementById("root1")).render(h1Element);
+  </script>
+
+  <hr>
+
+  <div id="root2"></div>
+  <script type="text/babel">
+    // 여러 태그를 단일 태그로 생성하기
+    const divElement = 
+    <React.Fragment>
+      <div>Hello World</div>
+      <div>Nice to meet you</div>
+    </React.Fragment>
+
+    // <React.Fragment>의 축약 버전
+    const pElement = <>
+      <p>Hello World2</p>
+      <p>Nice to meet you</p>
+    </>
+
+
+    // rendering
+    ReactDOM.createRoot(document.getElementById("root2")).render(divElement);
+  </script>
+
+  <hr>
+
+  <div id="root3"></div>
+  <script type="text/babel">
+    // 중괄호{}를 이용한 표현식/주석 작성
+    const radius = 3.5;
+    const circleElement = <>
+      <h1 
+        id="radius"
+        className="radius"  // 태그 내부의 주석은 중괄호를 사용하지 않는다. (주로 시작 태구에 주석을 단다.)
+      >반지름 : {radius}</h1>
+      <h1>원둘레 : {2 * Math.PI * radius}</h1>  {/* 태그 외부의 주석은 중괄호를 사용 */}
+      <h1>원넓이 : {Math.PI * Math.pow(radius, 2)}</h1>
+      {
+        // 슬래시 2개 주석(single line comment)은 중괄호와 다른 줄에 작성해야 한다.
+      }
+    </>
+    
+    // rendering
+    ReactDOM.createRoot(document.getElementById("root3")).render(circleElement);
+  </script>
+
+  <hr>
+
+  <div id="root4"></div>
+  <script type="text/babel">
+    // 셀프 클로징 태그는 반드시 슬래시(/)를 추가해야 한다.
+    const inputElement = <input type="text"/>
+    ReactDOM.createRoot(document.getElementById("root4")).render(inputElement);
+  </script>
+
+  <hr>
+
+  <div id="root5"></div>
+  <script type="text/babel">
+    const condition = false;
+    const spanElement = <>
+      {condition ? <span>True</span> : <span>False</span>}
+      <br/>
+      {condition && <span>Text</span>}  {/* 공란 */}
+      <br/>
+      {condition || <span>Text2</span>}
+    </>;
+    ReactDOM.createRoot(document.getElementById("root5")).render(spanElement);
+  </script>
+
+  <hr>
+
+  <div id="root6"></div>
+  <script type="text/babel">
+    // 객체 리터럴 형식으로 스타일을 전달
+    const boxStyle = {
+      width:"100px",
+      height:"100px",
+      border:"1px solid #000",
+      backgroundColor:"red",
+      textAlign:"center",
+      fontSize:"32px",
+      lineHeight:"100px",
+      color:"#fff"
+    }
+
+    const boxElement = <div style={boxStyle}>Hi</div>
+    ReactDOM.createRoot(document.getElementById("root6")).render(boxElement);
+  </script>
+
+  <hr>
+
+  <div id="root7"></div>
+  <script type="text/babel">
+    // 객체
+    const book = {
+      title:"어린왕자",
+      author:"생택쥐베리"
+    }
+
+    // Element
+    const ulElement =
+      <ul>
+        {/* <li>{book}</li> 객체 자체를 바로 사용 불가 따라서 아래와 같이 문자열로 변환 필요 */}
+        <li>{JSON.stringify(book)}</li>
+        <li>{book.title}</li>
+        <li>{book.author}</li>
+      </ul>
+    ReactDOM.createRoot(document.getElementById("root7")).render(ulElement);
+  </script>
+
+  <hr>
+
+  <di id="root8"></di>
+  <script type="text/babel">
+    // 연습) 아래 변수에 저장된 값을 <div> 태그로 화면에 표시하세요.
+    const name = "Tom";
+
+    // 연습) 아래 객체에 저장된 값 중 model 속성만 <div> 태그로 화면에 표시하세요.
+    const car = {
+      model : "sorento",
+      price : 4000
+    }
+
+    // 연습) 아래 score 값이 60 이상이면 "합격", 아니면 "불합격"을 <div> 태그로 화면에 표시하세요.
+    const score = 80;
+
+    // 연습) 아래 변수에 저장된 값이 없으면 "값없음", 값이 있으면 저장된 값을 <div> 태그로 화면에 표시하세요.
+    let value;
+
+    // 연습) 아래 color 값이 "r" 이면 "red", "g"이먄 "green", "b"이면 "blue" 배경색을 <div> 태그에 적용해 화면에 표시하세요.
+    // (100x100 크기)
+    const color = "r";
+    const style = {
+      width : "100px",
+      height : "100px",
+      backgroundColor : color == "r" ? "red" : color == "g" ? "green" : color == "b" ? "blue" : ""
+    };
+
+    const pracEle = 
+      <>
+        <div>{name}</div>
+        <div>{car.model}</div>
+        <div>{score >= 60 ? `score ${score} : 합격` : `score ${score} : 불합격`}</div>
+        <div>{value ? value : "값없음"}</div>   {/* value || "값없음" */}
+        <div style={{width:"100px",height:"100px",backgroundColor:color == "r" ? "red" : color == "g" ? "green" : color == "b" ? "blue" : ""}}></div>
+        {/* style = {style} */} {/* style 정보를 객체로 만들고 태그 안 style 속성에 적용 */}
+      </>
+    ReactDOM.createRoot(document.getElementById("root8")).render(pracEle);
+  </script>
 </body>
 </html>

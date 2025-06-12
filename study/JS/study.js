@@ -2,7 +2,7 @@
 hljs.highlightAll();
 
 window.onload = function(){
-    // 들여쓰기 제거 스크립트
+    // 들여쓰기 제거 스크립트 (코드영역)
     document.querySelectorAll('pre code').forEach((block) => {
         const lines = block.innerHTML.split('\n');
     
@@ -42,24 +42,59 @@ window.onload = function(){
     })
 
 
-    // lnb 클릭시 해당 content 보여주기
-    let lnbList = document.querySelectorAll(".lnb ul li");
-    let contWrap = document.querySelectorAll(".cont_wrap");
-    let cont = document.querySelectorAll(".cont");
-    lnbList.forEach(function(li){
-        li.addEventListener("click",function(){
-            let dataType = li.parentElement.dataset.type;
-            let title = li.textContent;
-            contWrap.forEach(function(contBox){
-                contBox.style.display = "none";
+    
+    // 메뉴 클릭시 콘텐츠 변환
+    {
+        document.querySelector(".lnb ul:nth-child(2)").style.display = "block";
+        document.querySelector(".lnb ul:nth-child(2) li:first-child").classList.add("on");
+        document.querySelector(".main_cont .cont_wrap:nth-child(2)").style.display = "block";
+        document.querySelector(".main_cont .cont_wrap:nth-child(2) .cont:first-child").style.display = "block";
+
+        const gnbMenu = document.querySelectorAll(".gnb ul li"); 
+        const lnbAll = document.querySelectorAll(".lnb ul");
+        const lnbListAll = document.querySelectorAll(".lnb ul li");
+        const contWrap = document.querySelectorAll(".cont_wrap");
+        const cont = document.querySelectorAll(".cont");
+
+        // gnb
+        gnbMenu.forEach(function(gnb,index){
+            gnb.addEventListener("click",function(){
+                let dataGnb = this.dataset.gnb;
+                lnbAll.forEach(function(el){
+                    el.style.display = "none";
+                });
+                contWrap.forEach(function(el){
+                    el.style.display = "none";
+                });
+                cont.forEach(function(el){
+                    el.style.display = "none";
+                });
+                lnbListAll.forEach(function(el){
+                    el.classList.remove("on");
+                });
+
+                document.querySelector(`.lnb_${dataGnb}`).style.display = "block";
+                document.querySelector(`.lnb_${dataGnb} li:first-child`).classList.add("on");
+                document.querySelector(`.cont_wrap.${dataGnb}`).style.display = "block";
+                document.querySelector(`.cont_wrap.${dataGnb} .cont:first-child`).style.display = "block";
             })
-            cont.forEach(function(cont){
-                cont.style.display = "none";
-            })
-            document.querySelector(`.cont_wrap.${dataType}`).style.display = "block";
-            document.querySelector(`.cont.${title}`).style.display = "block";
         })
-    })
+
+        // lnb 클릭시 해당 content 보여주기
+        lnbListAll.forEach(function(li,index){
+            li.addEventListener("click",function(){
+                let listType = this.parentElement.dataset.type;
+                cont.forEach(function(el){
+                    el.style.display = "none";
+                });
+                lnbListAll.forEach(function(el){
+                    el.classList.remove("on");
+                });
+                this.classList.add("on");
+                document.querySelector(`.cont_wrap.${listType} .cont:nth-child(${index+1})`).style.display = "block";
+            })
+        })
+    }
 
     // 모바일 메뉴 열기
     document.querySelector(".gnb span").addEventListener("click",function(){

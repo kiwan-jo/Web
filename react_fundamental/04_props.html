@@ -83,5 +83,154 @@
   2) 별도 CDN 추가가 필요합니다. (참고 : https://github.com/facebook/prop-types)
 -->
 
+  <div id="root1"></div>
+  <script type="text/babel">
+    const NameCard1 = (props) => {
+      return (
+        <h1>
+          <div>{props.name}</div>
+          <div>{props.phone}</div>
+        </h1>
+      )
+    }
+
+    const NameCard2 = (props) => {   // 객체 구조 분해 할당
+      const {name,phone} = props;
+      return (
+        <h1>
+          <div>{name}</div>
+          <div>{phone}</div>
+        </h1>
+      )
+    }
+
+    const NameCard3 = ({name,phone}) => {
+      return (
+        <h1>
+          <div>{name}</div>
+          <div>{phone}</div>
+        </h1>
+      )
+    }
+
+    const NameCard4 = (props) => {
+      return (
+        <h1>
+          <div>{props.name}</div>
+          <div>{props.phone}</div>
+          </h1>
+      )
+    }
+
+    const NameCard5 = ({name = "Jackson", phone = "010-5555-5555"}) => {  // 디폴트 매개변수 사용하기
+      return (
+        <h1>
+          <div>{name}</div>
+          <div>{phone}</div>
+        </h1>
+      )
+    }
+      
+    // props 객체의 디폴트 값 설정하기 (전달되지 않으면 사용할 값)
+    NameCard4.defaultProps = {  // defaultProps 속성은 제거될 예정이므로 대신 디폴트 매개변수를 사용용
+      name : "Jessica",
+      phone : "010-4444-4444"
+    }
+
+    const name = "James", phone = "010-1111-1111";
+    ReactDOM.createRoot(document.getElementById("root1")).render([
+      // <NameCard1 name="James" phone="010-1234-5678"/>
+      <NameCard1 name={name} phone={phone}/>,    // JSX에서 변수 전달은 {} 사용
+      <NameCard2 name="Alice" phone="010-2222-2222"/>,
+      <NameCard3 name={"Thomas"} phone={"010-3333-3333"}/>,
+      <NameCard4/>,
+      <NameCard5/>
+    ])
+    // 컴포넌트 호출 시 속성들은 컴포넌트의 매개변수에 객체 형태로 값을 전달하고 JSX문에서 객체.속성으로 값을 받아온다.
+  </script>
+
+  <hr>
+
+  <div id="root2"></div>
+  <script type="text/babel">
+    // props drilling : 하위 컴포넌트에 값을 연속해서 전달하는 방식. 좋은 방식이 아니므로 향후 다른 방식으로 대체하기를 권장
+    const FinalComp = ({data}) => {
+      return (
+        <>
+          <h1>I'm FinalComp</h1>
+          <h1>{data}</h1>
+        </>
+      )
+    }
+
+    const ThirdComp = ({data}) => {
+      return (
+        <>
+          <h1>I'm ThirdComp</h1>
+          <FinalComp data={data}/>
+        </>
+      )
+    }
+
+    const SecondComp = ({data}) => {
+      return (
+        <>
+          <h1>I'm SecondComp</h1>
+          <ThirdComp data={data}/>
+        </>
+      )
+    }
+
+    const FirstComp = ({data}) => {
+      return (
+        <>
+          <h1>I'm FirstComp</h1>
+          <SecondComp data={data}/>
+        </>
+      )
+    }
+
+    const App = () => {
+      const data = "Who needs me?";
+      return (
+        <>
+          <FirstComp data={data}/>
+        </>
+      )
+    }
+    ReactDOM.createRoot(document.getElementById("root2")).render(<App/>);
+  </script>
+
+  <hr>
+
+  <div id="root3"></div>
+  <script type="text/babel">
+    // props.children : 컴포넌트를 호출할 때 전달한 내부 요소를 의미
+    const GiftCard1 = (props) => {
+      console.log(props);
+      return (
+        <h1>{props.children}</h1>
+      )
+    }
+
+    const GiftCard2 = (props) => {
+      const {children} = props;
+      return (
+        <h1>{children}</h1>
+      )
+    }
+
+    const GiftCard3 = ({children}) => {
+      return(
+        <h1>{children}</h1>
+      )
+    }
+
+    ReactDOM.createRoot(document.getElementById("root3")).render([
+      <GiftCard1>3만원</GiftCard1>,
+      <GiftCard2>5만원</GiftCard2>,
+      <GiftCard3><em>10만원</em></GiftCard3>
+    ])
+  </script>
 </body>
 </html>

@@ -38,5 +38,45 @@
   3) ReactDOM 은 Element 와 그 자식 Element 를 이전의 Element 와 비교하고 변경된 부분만 업데이트 합니다.
 -->
 
+  <div id="root1"></div>
+  <script>
+    // react 시작
+    // Element 만들기 (React.createElement() 메소드 이용)
+    const h1Element = React.createElement(
+      "h1",                   // 태그 이름
+      {                       // 옵션
+        id:"title",           // id
+        className:"title"     // class
+      }, 
+      "Hello World"         // text
+    );                      // <h1 id="title" class="title">Hello World</h1>
+
+    // rendering (Element를 화면에 표시)
+    const root1 = document.getElementById("root1");
+    ReactDOM.createRoot(root1).render(h1Element);      // roo1에 뿌리다
+  </script>
+
+  <hr>
+
+  <div id="root2"></div>
+  <script>
+    const root2 = ReactDOM.createRoot(document.getElementById("root2"));
+    setInterval(() => {
+      const textElement = React.createElement(
+        "div",
+        {className:"text"},
+        "간단한 시계"
+      )
+
+      const timeElement = React.createElement(
+        "div",
+        {className:"time"},
+        new Date().toLocaleTimeString()
+      )
+      root2.render([textElement, timeElement]);    // 여러 개의 Element는 배열로 전달
+    },1000)
+
+  </script>
+
 </body>
 </html>

@@ -17,21 +17,14 @@
         <nav class="gnb">
             <span>메뉴</span>
             <ul>
-                <li>HTML</li>
-                <li>CSS</li>
-                <li>JavaScript</li>
+                <li data-gnb="js">JavaScript</li>
+                <li data-gnb="react">React</li>
             </ul>
         </nav>
         <div class="main">
             <!-- lnb -->
             <div class="lnb">
-                <ul class="l_html" data-type="html" style="display:none;">
-
-                </ul>
-                <ul class="l_css" data-type="css" style="display:none;">
-                    
-                </ul>
-                <ul class="l_js" data-type="js">
+                <ul class="lnb_js" data-type="js">
                     <li>Variable</li>
                     <li>Operator</li>
                     <li>Control</li>
@@ -53,17 +46,16 @@
                     <li>Promise</li>
                     <li>Fetch</li>
                 </ul>
+                <ul class="lnb_react" data-type="react">
+                    <li>element_render</li>
+                    <li>jsx</li>
+                    <li>component</li>
+                    <li>porps</li>
+                </ul>
             </div>
 
             <!-- main_cont -->
             <div class="main_cont">
-                <div class="cont_wrap html" style="display:none;">
-
-                </div>
-                <div class="cont_wrap css" style="display:none;">
-                    
-                </div>
-
                 <!-- 자바스크립트 -->
                 <div class="cont_wrap js">
                     <!-- js 1장 variable -->
@@ -511,6 +503,27 @@
                                 <pre>
                                     <code class="language-javascript">
 
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 리액트 -->
+                <div class="cont_wrap react" style="display:block;">
+                    <!-- react 1장 element_render -->
+                    <div class="cont element_render">
+                        <h1 class="main_title">element_render</h1>
+                        <div class="cont_box">
+                            <h2>1. <span>코드보기</span></h2>
+                            <div class="des">
+                                
+                            </div>
+                            <div class="code">
+                                <pre>
+                                    <code class="language-javascript">
+                                     
                                     </code>
                                 </pre>
                             </div>

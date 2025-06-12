@@ -45,5 +45,58 @@
   6) 예시 : function Welcome(props) { ... }
 -->
 
+  <div id="root1"></div>
+  <script type="text/babel">
+    // 클래스형 컴포넌트 만들기 : 컴포넌트 기능을 활용하기 위해서 React.Component를 상속받도록 만듭니다.
+    // class 클래스명 extends React.Component{} > 기본 구조
+    class ClassComp extends React.Component{
+      render(){
+        return <h1>Hello Class Component</h1>
+      }
+    }
+
+    // rendering : 컴포넌트는 태그 형식으로 렌더링합니다.
+    ReactDOM.createRoot(document.getElementById("root1")).render(<ClassComp/>)  // <ClassComp></ClassComp> -> self closing <ClassComp/>
+  </script>
+
+  <hr>
+
+  <div id="root2"></div>
+  <script type="text/babel">
+    // 함수형 컴포넌트 만들기 : 함수 선언식, 함수 표현식 모두 사용할 수 있다.
+    const FunctionComp = () => {
+      return (
+      <>
+        <div>Hello Function Component</div>
+        <div>Nice to meet you</div>
+      </>
+    )}
+    // rendering : 컴포넌트는 태그 형식으로 렌더링 한다.
+    ReactDOM.createRoot(document.getElementById("root2")).render(<FunctionComp/>);
+  </script>
+
+  <hr>
+
+  <div id="root3"></div>
+  <script type="text/babel">
+    // 내부 컴포넌트 만들기
+    const InnerComp = () => {
+      return (
+        <h1>Inner Component</h1>
+      )
+    }
+
+    const OuterComp = () => {
+      return (
+        <>
+          <InnerComp/>
+          <InnerComp/>
+          <InnerComp/>
+        </>
+      )
+    }
+
+    ReactDOM.createRoot(document.getElementById("root3")).render(<OuterComp/>)
+  </script>
 </body>
 </html>
