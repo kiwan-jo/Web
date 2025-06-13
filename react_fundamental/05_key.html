@@ -23,5 +23,88 @@
   4) key로 사용하기 적절한 값은 DB에서 조회한 데이터의 PK값입니다.
 -->
 
+  <div id="root1"></div>
+  <script type="text/babel">
+    {
+      const ListComp = ({items}) => {
+        // console.log(items)
+        return (
+          <ul>
+            {items.map((item,index) => <li key={index}>{item}</li>)}
+          </ul>
+        )
+      }
+
+      const items = ["봄","여름","가을","겨울"];
+      ReactDOM.createRoot(document.getElementById("root1")).render(<ListComp items={items}/>)
+    }
+  </script>
+
+  <hr>
+
+  <div id="root2"></div>
+  <script type="text/babel">
+    {
+      const ListComp = ({items}) => {
+        return (
+          <ul>
+            {items.map((item,index) => {
+              return(
+                <ListItemComp item={item} key={index}/>
+              )
+            })}
+          </ul>
+        )
+      }
+      const ListItemComp = ({item}) => {
+        return(
+          <li>{item}</li>
+        )
+      }
+
+      const names = ["Alice","Jessica","Tommy","Eric"]
+      ReactDOM.createRoot(document.getElementById("root2")).render(<ListComp items={names}/>)
+    }
+  </script>
+
+  <hr>
+
+  <div id="root3"></div>
+  <script type="text/babel">
+    {
+      const ListItemComp2 = ({item}) => {
+        return(
+          <>
+            <li>{item.model}</li>
+            <li>{JSON.stringify(item)}</li>
+          </>
+        )
+      }
+      const ListComp2 = ({items}) => {
+        return(
+          <ul>
+            {items.map(item => {
+              return <ListItemComp2 key={item.carNo} item={item}/>
+            })}
+          </ul>
+        )
+      }
+      const cars = [
+        {
+          carNo : "123가1234",
+          model : "BMW"
+        },
+        {
+          carNo : "234나2345",
+          model : "Benz"
+        },
+        {
+          carNo : "345다3456",
+          model : "Volvo"
+        }
+      ]
+      ReactDOM.createRoot(document.getElementById("root3")).render(<ListComp2 items={cars}/>)
+    }
+  </script>
 </body>
 </html>

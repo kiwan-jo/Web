@@ -66,5 +66,78 @@
   }
 -->
 
+  <!-- 뒤에서 더 좋은거 함 -->
+  <div id="root1"></div>
+  <script type="text/babel">
+    class Spin1 extends React.Component{
+      // state 선언 및 초기화
+      state = {
+        number:0
+      }
+      
+      increaseHandler = () => {
+        this.setState({number:this.state.number + 1})
+      }
+
+      decreaseHandler = () => {
+        this.setState({number:this.state.number - 1})
+      }
+
+      render(){
+        return(
+          <>
+            <h1>{this.state.number}</h1>
+            <button onClick={this.increaseHandler}>UP</button>
+            <button onClick={this.decreaseHandler}>DOWN</button>
+          </>
+        )
+      }
+    }
+    ReactDOM.createRoot(document.getElementById("root1")).render(<Spin1/>)
+  </script>
+
+  <hr>
+
+  <div id="root2"></div>
+  <script type="text/babel">
+    class Spin2 extends React.Component{
+      // 생성자를 이용한 state 선언 및 초기화
+      constructor(props){
+        super(props);
+        this.state = {
+          number:0
+        }
+      }
+
+      increaseHandler = () => {
+        this.setState((prevState) => {
+          return{
+            number : prevState.number + 2
+          }
+        })
+      }
+
+      decreaseHandler = () => {
+        this.setState((prevState) => {
+          return{
+            number : prevState.number - 2
+          }
+        })
+      }
+
+      render(){
+        const {number} = this.state;
+        return(
+          <>
+            <h1 style={{color: number === 0 ? "#000" : number > 0 ? "#f00" : "#00f"}}>{number}</h1>
+            <button onClick={this.increaseHandler}>UP</button>
+            <button onClick={this.decreaseHandler}>DOWN</button>
+          </>
+        )
+      }
+    }
+
+    ReactDOM.createRoot(document.getElementById("root2")).render(<Spin2/>)
+  </script>
 </body>
 </html>

@@ -22,7 +22,7 @@
 
 2. Mount (마운트)
   1) 컴포넌트가 처음으로 DOM에 삽입되는 단계입니다.
-  2) 주요 과정
+  2) 주요 과정 (순서대로 동작)
     (1) 초기 상태(state)와 값 설정
     (2) JSX(혹은 render 함수) 실행 → 가상 DOM(virtual DOM) 생성
     (3) 가상 DOM을 실제 DOM에 반영
@@ -74,5 +74,151 @@
     (4) componentWillUnmount
 -->
 
+  <div id="root1"></div>
+  <script type="text/babel">
+    class MountTest extends React.Component{
+      // 1. constructor
+      constructor(props){
+        super(props);
+        this.state = {
+          msg:"Hello World"
+        }
+        console.log("constructor");
+      }
+
+      // 2. getDerivedStateFromProps : props로 받아온 값으로 state를 동기화(Mount, Update 시 동작)
+      static getDerivedStateFromProps(nextProps,nextState){  // 몰라도됨
+        console.log("getDerivedStateFromProps");
+        console.log("nextProps",nextProps);
+        console.log("nextState",nextState);
+        return null;
+      }
+
+      // 3. render
+      render(){
+        console.log("render");
+        return(
+          <h1>{this.state.msg}</h1>
+        )
+      }
+
+      // 4. componentDidMount : 컴포넌트를 화면에 그린 이후에 동작
+      componentDidMount(){
+        console.log("componentDidMount");
+      }
+    }
+
+    // ReactDOM.createRoot(document.getElementById("root1")).render(<MountTest test={10}/>)
+  </script>
+
+  <hr>
+
+  <div id="root2"></div>
+  <script type="text/babel">
+    class UpdateTest extends React.Component{
+      // 1. constructor
+      constructor(props){
+        super(props);
+        this.state = {
+          now : new Date().toLocaleTimeString()
+        }
+        console.log("constructor",this.state.now)
+      }
+
+      // 2. getDerivedStateFromProps : props로 받아온 값으로 state를 동기화(Mount, Update 시 동작)
+      static getDerivedStateFromProps(nextProps,nextState){  // 몰라도됨
+        console.log("getDerivedStateFromProps");
+        console.log("nextProps",nextProps);
+        console.log("nextState",nextState);
+        return null;
+      }
+
+      // 3. shouldComponentUpdate : 컴포넌트의 업데이트(리렌더링) 여부를 boolean 타입으로 반환한다.
+      //    false 반환 시 render() 메소드 이후의 LifeCycleMethod를 호출하지 않는다.
+      shouldComponentUpdate(nextProps,nextState){
+        console.log("shouldComponentUpdate");
+        console.log("nextProps",nextProps);
+        console.log("nextState",nextState);
+        return true;
+      }
+
+      // 클릭 이벤트 핸들러
+      onClickHandler = (e) => {
+        this.setState({
+          now : new Date().toLocaleTimeString()
+        })
+      }
+
+      // 4. render
+      render(){
+        console.log("render");
+        return(
+          <>
+            <button onClick={this.onClickHandler}>현재시간보기</button>
+            <h1>{this.state.now}</h1>
+          </>
+        )
+      }
+
+      // 5. getSnapshotBeforeUpdate : 업데이트 직전의 스냅샷을 componentDidUpdate() 메소드에 3번째 인자로 전달
+      getSnapshotBeforeUpdate(prevProps,prevState){
+        console.log("getSnapshotBeforeUpdate");
+        console.log("prevProps",prevProps)
+        console.log("prevState",prevState)
+        return {  // 스냅샷(어떤 정보를 가진 객체)을 반환하면 이 값을 componentDidUpdate() 메소드로 전달
+          snapshotTime : new Date().toLocaleTimeString()
+        }
+      }
+
+      // 6. componentDidUpdate : 리렌더링 이후에 동작. 리렌더링 이전의 prevProps, prevState, snapshot을 사용 할 수 있다.
+      componentDidUpdate(prevProps,prevState,snapshot){
+        console.log("componentDidUpdate");
+        console.log("prevProps",prevProps);
+        console.log("prevState",prevState);
+        console.log("snapshot",snapshot);
+      }
+    }
+
+    // ReactDOM.createRoot(document.getElementById("root2")).render(<UpdateTest/>)
+  </script>
+
+  <hr>
+
+  <div id="root3"></div>
+  <script type="text/babel">
+    class UnmountTest extends React.Component{
+      // 1. constructor
+      constructor(props){
+        super(props);
+      }
+
+      // 2. getDerivedStateFromProps : props로 받아온 값으로 state를 동기화(Mount, Update 시 동작)
+      static getDerivedStateFromProps(nextProps,nextState){  // 몰라도됨
+        console.log("getDerivedStateFromProps");
+        console.log("nextProps",nextProps);
+        console.log("nextState",nextState);
+        return null;
+      }
+
+      // 3. render
+      render() {
+        console.log("render");
+        return(
+          <h1>Unmount Test</h1>
+        )
+      }
+
+      // 4. componentWillUnmount
+      componentWillUnmount(){
+        console.log("componentWillUnmount");
+      }
+    }
+    ReactDOM.createRoot(document.getElementById("root3")).render(<UnmountTest/>)
+    const root3 = ReactDOM.createRoot(document.getElementById("root3"));
+    root3.render(<UnmountTest/>)
+    setTimeout(() => {
+      root3.render(null)
+    }, 5000)
+  </script>
 </body>
 </html>

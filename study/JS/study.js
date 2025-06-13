@@ -46,9 +46,9 @@ window.onload = function(){
     // 메뉴 클릭시 콘텐츠 변환
     {
         document.querySelector(".lnb ul:nth-child(2)").style.display = "block";
-        document.querySelector(".lnb ul:nth-child(2) li:first-child").classList.add("on");
+        document.querySelector(".lnb ul:nth-child(2) li:nth-child(2)").classList.add("on");
         document.querySelector(".main_cont .cont_wrap:nth-child(2)").style.display = "block";
-        document.querySelector(".main_cont .cont_wrap:nth-child(2) .cont:first-child").style.display = "block";
+        document.querySelector(".main_cont .cont_wrap:nth-child(2) .cont:nth-child(2)").style.display = "block";
 
         const gnbMenu = document.querySelectorAll(".gnb ul li"); 
         const lnbAll = document.querySelectorAll(".lnb ul");
@@ -81,20 +81,24 @@ window.onload = function(){
         })
 
         // lnb 클릭시 해당 content 보여주기
-        // 코드 수정 필요
-        lnbListAll.forEach(function(li,index){
-            li.addEventListener("click",function(){
-                let listType = this.parentElement.dataset.type;
-                cont.forEach(function(el){
-                    el.style.display = "none";
-                });
-                lnbListAll.forEach(function(el){
-                    el.classList.remove("on");
-                });
-                this.classList.add("on");
-                document.querySelector(`.cont_wrap.${listType} .cont:nth-child(${index+1})`).style.display = "block";
+        lnbAll.forEach(function(ul){
+            ul.querySelectorAll("li").forEach(function(li,index){
+                li.addEventListener("click",function(){
+                    let listType = this.parentElement.dataset.type;
+                    cont.forEach(function(el){
+                        el.style.display = "none";
+                    });
+                    lnbListAll.forEach(function(el){
+                        el.classList.remove("on");
+                    });
+                    this.classList.add("on");
+                    document.querySelector(`.cont_wrap.${listType} .cont:nth-child(${index+1})`).style.display = "block";
+                })
             })
         })
+
+
+        
     }
 
     // 모바일 메뉴 열기
